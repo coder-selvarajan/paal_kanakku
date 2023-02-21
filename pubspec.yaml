@@ -41,13 +41,14 @@ dependencies:
   isar: ^3.0.5
   isar_flutter_libs: ^3.0.5
   url_launcher: ^6.1.9
+  table_calendar: ^3.0.8
 
 flutter_native_splash:
-  color: "#FF5252"
-  image: assets/VRV_logo3.png
+  color: "#2196F3"
+  image: assets/milk-bottle.png
   android_12:
-    icon_background_color: "#FF5252"
-    image: assets/VRV_logo3.png
+    icon_background_color: "#2196F3"
+    image: assets/milk-bottle.png
   web: false
 
 dev_dependencies:
