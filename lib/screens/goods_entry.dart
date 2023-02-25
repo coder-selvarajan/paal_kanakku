@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import 'calendar_sample1.dart';
 
 class GoodsEntry extends StatelessWidget {
   const GoodsEntry({Key? key}) : super(key: key);
@@ -61,6 +64,15 @@ class GoodsEntry extends StatelessWidget {
                   child: Text("Milk"),
                 ),
               ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TableComplexExample()),
+                    );
+                  },
+                  child: Text("Complex Calendar")),
               SizedBox(
                 height: 20.0,
               ),
@@ -68,6 +80,23 @@ class GoodsEntry extends StatelessWidget {
                 firstDay: DateTime.utc(2022, 01, 01),
                 lastDay: DateTime.utc(2024, 12, 31),
                 focusedDay: DateTime.now(),
+                onDaySelected: (date, events) {
+                  print(date.toIso8601String());
+                },
+                calendarBuilders: CalendarBuilders(
+                  dowBuilder: (context, day) {
+                    if (day.weekday == DateTime.sunday) {
+                      final text = DateFormat.E().format(day);
+
+                      return Center(
+                        child: Text(
+                          text,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.spaceAround,
