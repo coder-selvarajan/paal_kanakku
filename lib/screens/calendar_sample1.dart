@@ -23,7 +23,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
   );
 
   late PageController _pageController;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
+  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
@@ -63,11 +63,14 @@ class _TableComplexExampleState extends State<TableComplexExample> {
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     setState(() {
-      if (_selectedDays.contains(selectedDay)) {
-        _selectedDays.remove(selectedDay);
-      } else {
-        _selectedDays.add(selectedDay);
-      }
+      _selectedDays.clear();
+      _selectedDays.add(selectedDay);
+
+      // if (_selectedDays.contains(selectedDay)) {
+      //   _selectedDays.remove(selectedDay);
+      // } else {
+      //   _selectedDays.add(selectedDay);
+      // }
 
       _focusedDay.value = focusedDay;
       _rangeStart = null;
@@ -98,162 +101,395 @@ class _TableComplexExampleState extends State<TableComplexExample> {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('TableCalendar - Complex'),
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80), //height of appbar
+        child: Container(
+          color: Colors.lightBlue,
+          child: Column(
+            children: [
+              AppBar(
+                // toolbarHeight: 80.0,
+                backgroundColor: Colors.lightBlue,
+                title: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text("📖"),
+                    const SizedBox(
+                      width: 10.0,
+                    ),
+                    Text("Daily Provisions Entry"),
+                  ],
+                ),
+                elevation: 0,
+              ),
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(60.0),
+                      topRight: Radius.circular(60.0),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
       body: Column(
         children: [
-          ValueListenableBuilder<DateTime>(
-            valueListenable: _focusedDay,
-            builder: (context, value, _) {
-              return _CalendarHeader(
-                focusedDay: value,
-                clearButtonVisible: canClearSelection,
-                onTodayButtonTap: () {
-                  setState(() => _focusedDay.value = DateTime.now());
-                },
-                onClearButtonTap: () {
-                  setState(() {
-                    _rangeStart = null;
-                    _rangeEnd = null;
-                    _selectedDays.clear();
-                    _selectedEvents.value = [];
-                  });
-                },
-                onLeftArrowTap: () {
-                  _pageController.previousPage(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeOut,
-                  );
-                },
-                onRightArrowTap: () {
-                  _pageController.nextPage(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeOut,
-                  );
-                },
-              );
-            },
-          ),
-          TableCalendar<Event>(
-            firstDay: kFirstDay,
-            lastDay: kLastDay,
-            focusedDay: _focusedDay.value,
-            headerVisible: false,
-            selectedDayPredicate: (day) => _selectedDays.contains(day),
-            rangeStartDay: _rangeStart,
-            rangeEndDay: _rangeEnd,
-            calendarFormat: _calendarFormat,
-            rangeSelectionMode: _rangeSelectionMode,
-            eventLoader: _getEventsForDay,
-            // holidayPredicate: (day) {
-            //   // Every 20th day of the month will be treated as a holiday
-            //   return day.day == 20;
-            // },
-            onDaySelected: _onDaySelected,
-            onRangeSelected: _onRangeSelected,
-            onCalendarCreated: (controller) => _pageController = controller,
-            onPageChanged: (focusedDay) => _focusedDay.value = focusedDay,
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() => _calendarFormat = format);
-              }
-            },
-            calendarBuilders: CalendarBuilders(
-              selectedBuilder: (context, date, events) => Container(
-                margin: EdgeInsets.all(4.0),
-                alignment: Alignment.topLeft,
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                // color: Colors.red,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 5.0, top: 5.0),
-                  child: Text(
-                    date.day.toString(),
-                  ),
-                ),
-              ),
-              markerBuilder: (context, date, events) {
-                return (kEvents[date]?.length! ?? 0) > 0
-                    ? Container(
-                        margin: EdgeInsets.only(bottom: 8.0),
-                        alignment: Alignment.bottomRight,
-                        width: 30,
-                        height: 15,
-                        decoration: BoxDecoration(
-                          // color: Colors.white,
-                          borderRadius: BorderRadius.circular(4.0),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: ScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 20.0, bottom: 40.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          // padding: EdgeInsets.all(15.0),
+                          decoration: BoxDecoration(
+                            // color: Colors.lightBlueAccent.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "🧃",
+                                style: TextStyle(fontSize: 40.0),
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Milk",
+                                    style: textTheme.headline6,
+                                  ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Text(
+                                    "(0.5Litre = Rs30)",
+                                    style: TextStyle(
+                                        fontSize: textTheme.subtitle2!.fontSize,
+                                        color: Colors.black54),
+                                  ),
+                                ],
+                              ),
+                              // Text(
+                              //   "Rs1200",
+                              //   style: textTheme.titleLarge,
+                              // ),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                      ],
+                    ),
+                    const SizedBox(height: 10.0),
+                    Divider(
+                      color: Colors.grey,
+                      thickness: 1.0,
+                    ),
+                    const SizedBox(height: 10.0),
+                    Text(
+                      "Select the date & add Milk: ",
+                      style: TextStyle(
+                          // color: Colors.grey,
+                          fontSize: textTheme.titleMedium!.fontSize),
+                    ),
+                    const SizedBox(height: 10.0),
+                    TableCalendar<Event>(
+                      firstDay: kFirstDay,
+                      lastDay: kLastDay,
+                      focusedDay: _focusedDay.value,
+                      headerVisible: true,
+                      headerStyle: HeaderStyle(
+                        titleCentered: true,
+                        formatButtonVisible: true,
+                      ),
+                      selectedDayPredicate: (day) =>
+                          _selectedDays.contains(day),
+                      rangeStartDay: _rangeStart,
+                      rangeEndDay: _rangeEnd,
+                      calendarFormat: _calendarFormat,
+                      rangeSelectionMode: _rangeSelectionMode,
+                      eventLoader: _getEventsForDay,
+                      // holidayPredicate: (day) {
+                      //   // Every 20th day of the month will be treated as a holiday
+                      //   return day.day == 20;
+                      // },
+                      onDaySelected: _onDaySelected,
+                      onRangeSelected: _onRangeSelected,
+                      onCalendarCreated: (controller) =>
+                          _pageController = controller,
+                      onPageChanged: (focusedDay) =>
+                          _focusedDay.value = focusedDay,
+                      onFormatChanged: (format) {
+                        if (_calendarFormat != format) {
+                          setState(() => _calendarFormat = format);
+                        }
+                      },
+
+                      calendarBuilders: CalendarBuilders(
+                        todayBuilder: (context, date, events) => Container(
+                          margin: EdgeInsets.all(4.0),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          // color: Colors.red,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+                            child: Text(
+                              date.day.toString(),
+                              style:
+                                  TextStyle(fontSize: 12.0, color: Colors.red),
+                            ),
+                          ),
+                        ),
+                        selectedBuilder: (context, date, events) => Container(
+                          margin: EdgeInsets.all(4.0),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                            color: Colors.blue.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          // color: Colors.red,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+                            child: Text(
+                              date.day.toString(),
+                            ),
+                          ),
+                        ),
+                        outsideBuilder: (context, date, events) => Container(
+                          margin: EdgeInsets.all(4.0),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                            // color: Colors.grey.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(
+                                color: Colors.grey.withOpacity(0.15), width: 2),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+                            child: Text(
+                              date.day.toString(),
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.grey.withOpacity(0.5)),
+                            ),
+                          ),
+                        ),
+                        markerBuilder: (context, date, events) {
+                          return (kEvents[date]?.length! ?? 0) > 0
+                              ? Container(
+                                  margin:
+                                      EdgeInsets.only(bottom: 6.0, right: 6.0),
+                                  alignment: Alignment.bottomRight,
+                                  height: 15,
+                                  decoration: BoxDecoration(
+                                    // color: Colors.red,
+                                    borderRadius: BorderRadius.circular(4.0),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        kEvents[date]?.length.toString() ?? "",
+                                        style: TextStyle(
+                                            color: Colors.blue, fontSize: 13.0),
+                                      ),
+                                      // SizedBox(
+                                      //   width: 1.0,
+                                      // ),
+                                      Text(
+                                        "🧃",
+                                        style: TextStyle(fontSize: 10.0),
+                                      ),
+                                      // Icon(
+                                      //   Icons.local_drink_rounded,
+                                      //   size: 10.0,
+                                      //   color: Colors.blue,
+                                      // ),
+                                      // CircleAvatar(
+                                      //   radius: 4.0,
+                                      //   // child: Text(""),
+                                      // ),
+                                    ],
+                                  ),
+                                )
+                              : SizedBox();
+                        },
+                        defaultBuilder: (context, date, events) => Container(
+                          margin: EdgeInsets.all(4.0),
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          // color: Colors.red,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+                            child: Text(
+                              date.day.toString(),
+                              style:
+                                  TextStyle(fontSize: 12.0, color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 25.0),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              kEvents[date]?.length.toString() ?? "",
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 2.0,
-                            ),
-                            CircleAvatar(
-                              radius: 4.0,
-                              // child: Text(""),
+                              "Feb 27, Monday ",
+                              style: textTheme.titleMedium,
                             ),
                           ],
                         ),
-                      )
-                    : SizedBox();
-              },
-              defaultBuilder: (context, date, events) => Container(
-                margin: EdgeInsets.all(4.0),
-                alignment: Alignment.topLeft,
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.25),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                // color: Colors.red,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 5.0, top: 5.0),
-                  child: Text(
-                    date.day.toString(),
-                    style: TextStyle(fontSize: 12.0),
-                  ),
+                        Spacer(),
+                        OutlinedButton(
+                          onPressed: () async {},
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.blueAccent,
+                            side: const BorderSide(
+                                width: 1.5, color: Colors.blue),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: 5.0,
+                              ),
+                              const Text(
+                                "Add  Milk",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15.0),
+                    ValueListenableBuilder<List<Event>>(
+                      valueListenable: _selectedEvents,
+                      builder: (context, value, _) {
+                        return ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: value.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: EdgeInsets.only(bottom: 10.0),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15.0, vertical: 0.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.0),
+                                color: Colors.grey.withOpacity(0.15),
+                              ),
+                              child: ListTile(
+                                visualDensity:
+                                    VisualDensity(horizontal: 0, vertical: -2),
+                                contentPadding: EdgeInsets.all(0.0),
+                                onTap: () => print('${value[index]}'),
+                                title: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "🧃",
+                                      style: textTheme.headline5,
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Text('${value[index]}'),
+                                    Spacer(),
+                                    Text("Rs 30"),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Icon(
+                                      Icons.close_rounded,
+                                      color: Colors.redAccent,
+                                      size: 20.0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 8.0),
-          Expanded(
-            child: ValueListenableBuilder<List<Event>>(
-              valueListenable: _selectedEvents,
-              builder: (context, value, _) {
-                return ListView.builder(
-                  itemCount: value.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 4.0,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: ListTile(
-                        onTap: () => print('${value[index]}'),
-                        title: Text('${value[index]}'),
-                      ),
-                    );
-                  },
-                );
-              },
+          Container(
+            margin:
+                EdgeInsets.only(top: 20, left: 20.0, right: 20.0, bottom: 30.0),
+            // width: double.infinity,
+            padding: EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+              color: Colors.lightBlueAccent.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(20.0),
             ),
-          ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  "Feb 2023",
+                  style: textTheme.titleMedium,
+                ),
+                Text(
+                  "·",
+                  style: textTheme.titleLarge,
+                ),
+                Text(
+                  "15L",
+                  style: textTheme.titleMedium,
+                ),
+                Text(
+                  "·",
+                  style: textTheme.titleLarge,
+                ),
+                Text(
+                  "Rs1200",
+                  style: textTheme.titleMedium,
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
