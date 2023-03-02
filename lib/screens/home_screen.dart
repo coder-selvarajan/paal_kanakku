@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:paal_kanakku/screens/goods_entry.dart';
 
+import 'calendar_sample1.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -77,13 +79,24 @@ class HomeScreen extends StatelessWidget {
               child: Text("Welcome to Paal Kanakku"),
             ),
             TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => GoodsEntry()),
-                  );
-                },
-                child: Text("New entry"))
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => GoodsEntry()),
+                );
+              },
+              child: Text("New entry"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TableComplexExample()),
+                );
+              },
+              child: Text("Daily Provisions Entry"),
+            ),
           ],
         ));
   }

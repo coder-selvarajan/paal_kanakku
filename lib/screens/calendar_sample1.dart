@@ -205,7 +205,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                     ),
                     const SizedBox(height: 10.0),
                     Text(
-                      "Select the date & add Milk: ",
+                      "Select a Date & Add Milk: ",
                       style: TextStyle(
                           // color: Colors.grey,
                           fontSize: textTheme.titleMedium!.fontSize),
@@ -227,6 +227,11 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                       calendarFormat: _calendarFormat,
                       rangeSelectionMode: _rangeSelectionMode,
                       eventLoader: _getEventsForDay,
+                      availableCalendarFormats: const {
+                        CalendarFormat.month: 'Month',
+                        CalendarFormat.twoWeeks: '2 Weeks'
+                      },
+                      availableGestures: AvailableGestures.horizontalSwipe,
                       // holidayPredicate: (day) {
                       //   // Every 20th day of the month will be treated as a holiday
                       //   return day.day == 20;
@@ -365,6 +370,15 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                             Text(
                               "Feb 27, Monday ",
                               style: textTheme.titleMedium,
+                            ),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Text(
+                              "1L = Rs60",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: textTheme.caption!.fontSize),
                             ),
                           ],
                         ),
