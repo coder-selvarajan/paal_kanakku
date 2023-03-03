@@ -84,31 +84,76 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.lightBlueAccent.withOpacity(0.35),
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        padding: EdgeInsets.all(20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              "Mar 2023 ",
-                              style: TextStyle(
-                                fontSize: textTheme.titleLarge!.fontSize,
-                                // color: Colors.lightBlue,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.lightBlueAccent.withOpacity(0.35),
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              padding: EdgeInsets.all(10.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "March 2023",
+                                    style: TextStyle(
+                                      fontSize: textTheme.titleMedium!.fontSize,
+                                      fontWeight: FontWeight.bold,
+                                      // color: Colors.lightBlue,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Text(
+                                    "As on Mar 4 ",
+                                    style: TextStyle(
+                                      fontSize: textTheme.caption!.fontSize,
+                                      // fontWeight: FontWeight.bold,
+                                      // color: Colors.lightBlue,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(
-                              "Total: Rs 1200",
-                              style: TextStyle(
-                                fontSize: textTheme.titleMedium!.fontSize,
-                                // color: Colors.lightBlue,
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.lightBlueAccent.withOpacity(0.35),
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              padding: EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Outstanding  ·  Rs 4300",
+                                    style: TextStyle(
+                                        // fontSize: textTheme.titleLarge!.fontSize,
+                                        // color: Colors.lightBlue,
+                                        ),
+                                  ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Text(
+                                    "Settled  ·  Rs 560",
+                                    style: TextStyle(
+                                      fontSize: textTheme.titleMedium!.fontSize,
+                                      // color: Colors.lightBlue,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 20,
