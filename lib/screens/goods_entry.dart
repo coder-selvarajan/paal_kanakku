@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import 'calendar_sample1.dart';
+import 'provision_entry_screen.dart';
 
 class GoodsEntry extends StatelessWidget {
   const GoodsEntry({Key? key}) : super(key: key);
@@ -66,11 +66,7 @@ class GoodsEntry extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TableComplexExample()),
-                    );
+                    //
                   },
                   child: Text("Complex Calendar")),
               SizedBox(

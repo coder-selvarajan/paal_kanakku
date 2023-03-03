@@ -9,12 +9,21 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../utils.dart';
 
-class TableComplexExample extends StatefulWidget {
+class ProvisionEntryScreen extends StatefulWidget {
+  final String image;
+  final String provision;
+
+  ProvisionEntryScreen({
+    Key? key,
+    required this.image,
+    required this.provision,
+  }) : super(key: key);
+
   @override
-  _TableComplexExampleState createState() => _TableComplexExampleState();
+  _ProvisionEntryScreenState createState() => _ProvisionEntryScreenState();
 }
 
-class _TableComplexExampleState extends State<TableComplexExample> {
+class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
   late final ValueNotifier<List<Event>> _selectedEvents;
   final ValueNotifier<DateTime> _focusedDay = ValueNotifier(DateTime.now());
   final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
@@ -23,7 +32,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
   );
 
   late PageController _pageController;
-  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
+  CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
@@ -136,7 +145,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -165,7 +174,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                "🧃",
+                                widget.image,
                                 style: TextStyle(fontSize: 40.0),
                               ),
                               SizedBox(
@@ -174,15 +183,17 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "Milk",
-                                    style: textTheme.headline6,
-                                  ),
+                                  Text(widget.provision,
+                                      style: TextStyle(
+                                        fontSize:
+                                            textTheme.titleMedium!.fontSize,
+                                        fontWeight: FontWeight.bold,
+                                      )),
                                   SizedBox(
                                     height: 5.0,
                                   ),
                                   Text(
-                                    "(0.5Litre = Rs30)",
+                                    "Feb 2023  ·  15L  ·  Rs 1200",
                                     style: TextStyle(
                                         fontSize: textTheme.subtitle2!.fontSize,
                                         color: Colors.black54),
@@ -198,19 +209,21 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10.0),
+                    const SizedBox(height: 5.0),
                     Divider(
                       color: Colors.grey,
                       thickness: 1.0,
                     ),
                     const SizedBox(height: 10.0),
                     Text(
-                      "Select a Date & Add Milk: ",
+                      "Select a Date & Add ${widget.provision}: ",
                       style: TextStyle(
-                          // color: Colors.grey,
-                          fontSize: textTheme.titleMedium!.fontSize),
+                        // color: Colors.grey,
+                        fontSize: textTheme.titleSmall!.fontSize,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    const SizedBox(height: 10.0),
+                    const SizedBox(height: 5.0),
                     TableCalendar<Event>(
                       firstDay: kFirstDay,
                       lastDay: kLastDay,
@@ -325,7 +338,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                                       //   width: 1.0,
                                       // ),
                                       Text(
-                                        "🧃",
+                                        widget.image,
                                         style: TextStyle(fontSize: 10.0),
                                       ),
                                       // Icon(
@@ -369,13 +382,16 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                           children: [
                             Text(
                               "Feb 27, Monday ",
-                              style: textTheme.titleMedium,
+                              style: TextStyle(
+                                fontSize: textTheme.titleSmall!.fontSize,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             SizedBox(
                               height: 5.0,
                             ),
                             Text(
-                              "1L = Rs60",
+                              "1L = Rs 60",
                               style: TextStyle(
                                   color: Colors.grey,
                                   fontSize: textTheme.caption!.fontSize),
@@ -390,7 +406,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                             side: const BorderSide(
                                 width: 1.5, color: Colors.blue),
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0)),
+                                borderRadius: BorderRadius.circular(10.0)),
                           ),
                           child: Row(
                             children: [
@@ -401,8 +417,8 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                               SizedBox(
                                 width: 5.0,
                               ),
-                              const Text(
-                                "Add  Milk",
+                              Text(
+                                "Add ${widget.provision}",
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
@@ -416,51 +432,77 @@ class _TableComplexExampleState extends State<TableComplexExample> {
                     ValueListenableBuilder<List<Event>>(
                       valueListenable: _selectedEvents,
                       builder: (context, value, _) {
-                        return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: value.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: EdgeInsets.only(bottom: 10.0),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 15.0, vertical: 0.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                color: Colors.grey.withOpacity(0.15),
-                              ),
-                              child: ListTile(
-                                visualDensity:
-                                    VisualDensity(horizontal: 0, vertical: -2),
-                                contentPadding: EdgeInsets.all(0.0),
-                                onTap: () => print('${value[index]}'),
-                                title: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "🧃",
-                                      style: textTheme.headline5,
+                        if (value.length == 0) {
+                          return Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text("-  No ${widget.provision}  -",
+                                  style: TextStyle(
+                                      fontSize: textTheme.subtitle1!.fontSize,
+                                      color: Colors.grey)),
+                            ),
+                          );
+                        }
+                        return Column(
+                          children: [
+                            ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: value.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(bottom: 10.0),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15.0, vertical: 0.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    color: Colors.grey.withOpacity(0.15),
+                                  ),
+                                  child: ListTile(
+                                    visualDensity: VisualDensity(
+                                        horizontal: 0, vertical: -2),
+                                    contentPadding: EdgeInsets.all(0.0),
+                                    onTap: () => print('${value[index]}'),
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          widget.image,
+                                          style: textTheme.headline5,
+                                        ),
+                                        SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        Text(
+                                            '${value[index]} ${widget.provision}'),
+                                        Spacer(),
+                                        Text("Rs 30"),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Icon(
+                                          Icons.close_rounded,
+                                          color: Colors.redAccent,
+                                          size: 20.0,
+                                        ),
+                                      ],
                                     ),
-                                    SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    Text('${value[index]}'),
-                                    Spacer(),
-                                    Text("Rs 30"),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Icon(
-                                      Icons.close_rounded,
-                                      color: Colors.redAccent,
-                                      size: 20.0,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                                  ),
+                                );
+                              },
+                            ),
+                            // Divider(),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            //   children: [
+                            //     Text("Total  ·  2L  ·  Rs 60"),
+                            //     // Text("Rs 60"),
+                            //   ],
+                            // ),
+                          ],
                         );
                       },
                     ),
@@ -469,41 +511,51 @@ class _TableComplexExampleState extends State<TableComplexExample> {
               ),
             ),
           ),
-          Container(
-            margin:
-                EdgeInsets.only(top: 20, left: 20.0, right: 20.0, bottom: 30.0),
-            // width: double.infinity,
-            padding: EdgeInsets.all(20.0),
-            decoration: BoxDecoration(
-              color: Colors.lightBlueAccent.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "Feb 2023",
-                  style: textTheme.titleMedium,
-                ),
-                Text(
-                  "·",
-                  style: textTheme.titleLarge,
-                ),
-                Text(
-                  "15L",
-                  style: textTheme.titleMedium,
-                ),
-                Text(
-                  "·",
-                  style: textTheme.titleLarge,
-                ),
-                Text(
-                  "Rs1200",
-                  style: textTheme.titleMedium,
-                ),
-              ],
-            ),
-          )
+          // Container(
+          //   margin:
+          //       EdgeInsets.only(top: 20, left: 20.0, right: 20.0, bottom: 30.0),
+          //   // width: double.infinity,
+          //   padding: EdgeInsets.all(20.0),
+          //   decoration: BoxDecoration(
+          //     color: Colors.lightBlueAccent.withOpacity(0.4),
+          //     borderRadius: BorderRadius.circular(20.0),
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //     children: [
+          //       Text(
+          //         "Feb 2023",
+          //         style: TextStyle(
+          //           fontSize: textTheme.titleMedium!.fontSize,
+          //           fontWeight: FontWeight.bold,
+          //         ),
+          //       ),
+          //       Text(
+          //         "·",
+          //         style: textTheme.titleLarge,
+          //       ),
+          //       Text(
+          //         "15L",
+          //         style: TextStyle(
+          //           fontSize: textTheme.titleMedium!.fontSize,
+          //           fontWeight: FontWeight.bold,
+          //         ),
+          //       ),
+          //       Text(
+          //         "·",
+          //         style: textTheme.titleLarge,
+          //       ),
+          //       Text(
+          //         "Rs1200",
+          //         style: TextStyle(
+          //           fontSize: textTheme.titleMedium!.fontSize,
+          //           fontWeight: FontWeight.w500,
+          //           color: Colors.red,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
