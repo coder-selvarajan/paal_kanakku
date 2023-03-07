@@ -93,8 +93,10 @@ class HomeScreen extends StatelessWidget {
                                 color: Colors.lightBlueAccent.withOpacity(0.35),
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
-                              padding: EdgeInsets.all(10.0),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 15),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
                                     "March 2023",
@@ -128,24 +130,25 @@ class HomeScreen extends StatelessWidget {
                                 color: Colors.lightBlueAccent.withOpacity(0.35),
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
-                              padding: EdgeInsets.all(10.0),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 15),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    "Outstanding  ·  Rs 4300",
+                                    "On Credit:  Rs 4300  ",
                                     style: TextStyle(
-                                        // fontSize: textTheme.titleLarge!.fontSize,
-                                        // color: Colors.lightBlue,
-                                        ),
+                                      fontSize: textTheme.bodyMedium!.fontSize,
+                                      // color: Colors.lightBlue,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 5.0,
                                   ),
                                   Text(
-                                    "Settled  ·  Rs 560",
+                                    "Settled:  Rs 560  ",
                                     style: TextStyle(
-                                      fontSize: textTheme.titleMedium!.fontSize,
+                                      fontSize: textTheme.bodyMedium!.fontSize,
                                       // color: Colors.lightBlue,
                                     ),
                                   ),
@@ -200,19 +203,20 @@ class HomeScreen extends StatelessWidget {
                           title: "Watercane",
                           subtitle: "12 cane - Rs 360"),
                       SizedBox(
-                        height: 15.0,
+                        height: 5.0,
                       ),
                       TextButton(
                         onPressed: () {},
                         child: Text(
                           "+ Setup New Provision",
                           style: TextStyle(
-                            color: Colors.blue.withOpacity(0.5),
+                            color: Colors.blue.withOpacity(0.7),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 25.0,
+                        height: 3.0,
                       ),
                       // Services
                       Row(
@@ -250,14 +254,15 @@ class HomeScreen extends StatelessWidget {
                           subtitle: "Monthly - Rs 500"),
 
                       SizedBox(
-                        height: 15.0,
+                        height: 5.0,
                       ),
                       TextButton(
                         onPressed: () {},
                         child: Text(
                           "+ Setup New Service",
                           style: TextStyle(
-                            color: Colors.blue.withOpacity(0.5),
+                            color: Colors.blue.withOpacity(0.7),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
