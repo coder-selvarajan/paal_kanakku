@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paal_kanakku/screens/goods_entry.dart';
+import 'package:paal_kanakku/screens/service_entry_screen.dart';
 
 import 'provision_entry_screen.dart';
 
@@ -182,26 +183,32 @@ class HomeScreen extends StatelessWidget {
                         height: 10,
                       ),
                       HomeItemTile(
-                          textTheme: textTheme,
-                          icon: "🍼",
-                          title: "Milk",
-                          subtitle: "15 Litre - Rs 600"),
+                        textTheme: textTheme,
+                        icon: "🍼",
+                        title: "Milk",
+                        subtitle: "15 Litre - Rs 600",
+                        itemType: ItemType.provision,
+                      ),
                       SizedBox(
                         height: 15.0,
                       ),
                       HomeItemTile(
-                          textTheme: textTheme,
-                          icon: "🥬",
-                          title: "Greens",
-                          subtitle: "20 Kattu - Rs 200"),
+                        textTheme: textTheme,
+                        icon: "🥬",
+                        title: "Greens",
+                        subtitle: "20 Kattu - Rs 200",
+                        itemType: ItemType.provision,
+                      ),
                       SizedBox(
                         height: 15.0,
                       ),
                       HomeItemTile(
-                          textTheme: textTheme,
-                          icon: "💧",
-                          title: "Watercane",
-                          subtitle: "12 cane - Rs 360"),
+                        textTheme: textTheme,
+                        icon: "💧",
+                        title: "Watercane",
+                        subtitle: "12 cane - Rs 360",
+                        itemType: ItemType.provision,
+                      ),
                       SizedBox(
                         height: 5.0,
                       ),
@@ -240,18 +247,22 @@ class HomeScreen extends StatelessWidget {
                         height: 10,
                       ),
                       HomeItemTile(
-                          textTheme: textTheme,
-                          icon: "🙋🏻‍♀️",
-                          title: "Baby Sitter",
-                          subtitle: "25 Days - Rs 3200"),
+                        textTheme: textTheme,
+                        icon: "🙋🏻‍♀️",
+                        title: "Baby Sitter",
+                        subtitle: "25 Days - Rs 3200",
+                        itemType: ItemType.service,
+                      ),
                       SizedBox(
                         height: 15,
                       ),
                       HomeItemTile(
-                          textTheme: textTheme,
-                          icon: "🚗",
-                          title: "Car Wash",
-                          subtitle: "Monthly - Rs 500"),
+                        textTheme: textTheme,
+                        icon: "🚗",
+                        title: "Car Wash",
+                        subtitle: "Monthly - Rs 500",
+                        itemType: ItemType.service,
+                      ),
 
                       SizedBox(
                         height: 5.0,
@@ -354,6 +365,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+enum ItemType { provision, service }
+
 class HomeItemTile extends StatelessWidget {
   const HomeItemTile({
     Key? key,
@@ -361,13 +374,14 @@ class HomeItemTile extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.subtitle,
+    required this.itemType,
   }) : super(key: key);
 
   final TextTheme textTheme;
   final String icon;
   final String title;
   final String subtitle;
-  // final String url;
+  final ItemType itemType;
 
   @override
   Widget build(BuildContext context) {
@@ -416,14 +430,27 @@ class HomeItemTile extends StatelessWidget {
           ),
         ),
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => new ProvisionEntryScreen(
-                      image: icon,
-                      provision: title,
-                    )),
-          );
+          if (itemType == ItemType.provision) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProvisionEntryScreen(
+                  image: icon,
+                  provision: title,
+                ),
+              ),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ServiceEntryScreen(
+                  image: icon,
+                  provision: title,
+                ),
+              ),
+            );
+          }
         },
       ),
     );
