@@ -418,6 +418,15 @@ class HomeItemTile extends StatelessWidget {
                     color: Colors.grey,
                     fontSize: textTheme.bodyMedium!.fontSize),
               ),
+              SizedBox(
+                height: 5.0,
+              ),
+              Text(
+                "Last entry : 2 days before",
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: textTheme.bodySmall!.fontSize),
+              ),
             ],
           ),
         ),

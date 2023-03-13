@@ -204,7 +204,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                     ),
                     const SizedBox(height: 5.0),
                     Text(
-                      "Tap the date to add ${widget.provision}: ",
+                      "Select Date & Add Service :",
                       style: TextStyle(
                         // color: Colors.grey,
                         fontSize: textTheme.titleSmall!.fontSize,
@@ -316,22 +316,42 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                 )
                               : SizedBox();
                         },
-                        defaultBuilder: (context, date, events) => Container(
-                          margin: EdgeInsets.all(4.0),
-                          alignment: Alignment.topLeft,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          // color: Colors.red,
-                          child: Center(
-                            child: Text(
-                              date.day.toString(),
-                              style:
-                                  TextStyle(fontSize: 12.0, color: Colors.grey),
-                            ),
-                          ),
-                        ),
+                        defaultBuilder: (context, date, events) {
+                          return (kEvents[date]?.length! ?? 0) > 0
+                              ? Container(
+                                  margin: EdgeInsets.all(4.0),
+                                  alignment: Alignment.topLeft,
+                                  decoration: BoxDecoration(
+                                    color: Colors.lightGreen.withOpacity(0.75),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  // color: Colors.red,
+                                  child: Center(
+                                    child: Text(
+                                      date.day.toString(),
+                                      style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.black87),
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  margin: EdgeInsets.all(4.0),
+                                  alignment: Alignment.topLeft,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.15),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  // color: Colors.red,
+                                  child: Center(
+                                    child: Text(
+                                      date.day.toString(),
+                                      style: TextStyle(
+                                          fontSize: 12.0, color: Colors.grey),
+                                    ),
+                                  ),
+                                );
+                        },
                       ),
                     ),
                     const SizedBox(height: 20.0),
@@ -340,22 +360,99 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                     //   thickness: 1.0,
                     // ),
                     // const SizedBox(height: 10.0),
-                    Row(
+                    Column(
                       children: [
-                        Text(
-                          " Feb 27, Monday ",
-                          style: TextStyle(
-                            fontSize: textTheme.titleSmall!.fontSize,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.lightBlueAccent,
+                        Center(
+                          child: Text(
+                            " Mar 14, Monday ",
+                            style: TextStyle(
+                              fontSize: textTheme.titleSmall!.fontSize,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.lightBlueAccent,
+                            ),
                           ),
                         ),
-                        Spacer(),
-                        Text(
-                          "Half day Service  ",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: textTheme.caption!.fontSize),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            OutlinedButton(
+                              onPressed: () async {},
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent,
+                                side: const BorderSide(
+                                    width: 1.5, color: Colors.blue),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0)),
+                              ),
+                              child: Row(
+                                children: const [
+                                  Text(
+                                    "No Service",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            OutlinedButton(
+                              onPressed: () async {},
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent,
+                                side: const BorderSide(
+                                    width: 1.5, color: Colors.blue),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0)),
+                              ),
+                              child: Row(
+                                children: const [
+                                  Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text(
+                                    "Half Day ",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            OutlinedButton(
+                              onPressed: () async {},
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent,
+                                side: const BorderSide(
+                                    width: 1.5, color: Colors.blue),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0)),
+                              ),
+                              child: Row(
+                                children: const [
+                                  Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text(
+                                    "Full Day ",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
