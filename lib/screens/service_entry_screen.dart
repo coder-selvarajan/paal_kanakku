@@ -296,7 +296,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                             BorderRadius.circular(10.0),
                                         border: Border.all(
                                           color: Colors.lightBlueAccent,
-                                          width: 2,
+                                          width: 2.5,
                                         ),
                                       ),
                                       // color: Colors.red,
@@ -355,7 +355,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                     borderRadius: BorderRadius.circular(10.0),
                                     border: Border.all(
                                       color: Colors.lightBlueAccent,
-                                      width: 2,
+                                      width: 2.5,
                                     ),
                                   ),
                                   // color: Colors.red,

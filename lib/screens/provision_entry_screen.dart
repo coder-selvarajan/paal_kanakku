@@ -314,48 +314,48 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                             ),
                           ),
                         ),
-                        markerBuilder: (context, date, events) {
-                          return (kEvents[date]?.length! ?? 0) > 0
-                              ? Container(
-                                  margin:
-                                      EdgeInsets.only(bottom: 6.0, right: 6.0),
-                                  alignment: Alignment.bottomRight,
-                                  height: 15,
-                                  decoration: BoxDecoration(
-                                    // color: Colors.red,
-                                    borderRadius: BorderRadius.circular(4.0),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        kEvents[date]?.length.toString() ?? "",
-                                        style: TextStyle(
-                                            color: Colors.blue, fontSize: 13.0),
-                                      ),
-                                      // SizedBox(
-                                      //   width: 1.0,
-                                      // ),
-                                      Text(
-                                        widget.image,
-                                        style: TextStyle(fontSize: 10.0),
-                                      ),
-                                      // Icon(
-                                      //   Icons.local_drink_rounded,
-                                      //   size: 10.0,
-                                      //   color: Colors.blue,
-                                      // ),
-                                      // CircleAvatar(
-                                      //   radius: 4.0,
-                                      //   // child: Text(""),
-                                      // ),
-                                    ],
-                                  ),
-                                )
-                              : SizedBox();
-                        },
+                        // markerBuilder: (context, date, events) {
+                        //   return (kEvents[date]?.length! ?? 0) > 0
+                        //       ? Container(
+                        //           margin:
+                        //               EdgeInsets.only(bottom: 6.0, right: 6.0),
+                        //           alignment: Alignment.bottomRight,
+                        //           height: 15,
+                        //           decoration: BoxDecoration(
+                        //             // color: Colors.red,
+                        //             borderRadius: BorderRadius.circular(4.0),
+                        //           ),
+                        //           child: Row(
+                        //             mainAxisAlignment: MainAxisAlignment.end,
+                        //             crossAxisAlignment:
+                        //                 CrossAxisAlignment.center,
+                        //             children: [
+                        //               Text(
+                        //                 kEvents[date]?.length.toString() ?? "",
+                        //                 style: TextStyle(
+                        //                     color: Colors.blue, fontSize: 13.0),
+                        //               ),
+                        //               // SizedBox(
+                        //               //   width: 1.0,
+                        //               // ),
+                        //               Text(
+                        //                 widget.image,
+                        //                 style: TextStyle(fontSize: 10.0),
+                        //               ),
+                        //               // Icon(
+                        //               //   Icons.local_drink_rounded,
+                        //               //   size: 10.0,
+                        //               //   color: Colors.blue,
+                        //               // ),
+                        //               // CircleAvatar(
+                        //               //   radius: 4.0,
+                        //               //   // child: Text(""),
+                        //               // ),
+                        //             ],
+                        //           ),
+                        //         )
+                        //       : SizedBox();
+                        // },
                         defaultBuilder: (context, date, events) => Container(
                           margin: EdgeInsets.all(4.0),
                           alignment: Alignment.topLeft,
@@ -381,8 +381,10 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                           horizontal: 20.0, vertical: 10.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.lightBlueAccent.withOpacity(0.15),
-                        // color: Colors.blueGrey.withOpacity(0.10),
+                        // color: Colors.lightBlueAccent.withOpacity(0.15),
+                        color: Colors.grey.withOpacity(0.15),
+                        border: Border.all(
+                            color: Colors.grey.withOpacity(0.2), width: 1),
                       ),
                       child: Row(
                         children: [
