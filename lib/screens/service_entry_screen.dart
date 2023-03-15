@@ -9,6 +9,12 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../utils.dart';
 
+const List<Widget> fruits = <Widget>[
+  Text('No Service'),
+  Text('Half Day'),
+  Text('Full Day')
+];
+
 class ServiceEntryScreen extends StatefulWidget {
   final String image;
   final String provision;
@@ -24,6 +30,8 @@ class ServiceEntryScreen extends StatefulWidget {
 }
 
 class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
+  final List<bool> _selectedFruits = <bool>[true, false, false];
+
   late final ValueNotifier<List<Event>> _selectedEvents;
   final ValueNotifier<DateTime> _focusedDay = ValueNotifier(DateTime.now());
   final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
@@ -190,6 +198,15 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Text(
+                                    "Shanthi - 20.5 days",
+                                    style: TextStyle(
+                                        fontSize: textTheme.subtitle2!.fontSize,
+                                        color: Colors.black54),
+                                  ),
                                 ],
                               ),
                             ],
@@ -202,15 +219,15 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                       color: Colors.grey,
                       thickness: 1.0,
                     ),
-                    const SizedBox(height: 5.0),
-                    Text(
-                      "Select Date & Add Service :",
-                      style: TextStyle(
-                        // color: Colors.grey,
-                        fontSize: textTheme.titleSmall!.fontSize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    // const SizedBox(height: 5.0),
+                    // Text(
+                    //   "Select Date & Add Service :",
+                    //   style: TextStyle(
+                    //     // color: Colors.grey,
+                    //     fontSize: textTheme.titleSmall!.fontSize,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
                     // const SizedBox(height: 5.0),
                     TableCalendar<Event>(
                       firstDay: kFirstDay,
@@ -266,22 +283,91 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                             ),
                           ),
                         ),
-                        selectedBuilder: (context, date, events) => Container(
-                          margin: EdgeInsets.all(4.0),
-                          alignment: Alignment.topLeft,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(
-                                color: Colors.lightBlueAccent.withOpacity(0.75),
-                                width: 2),
-                          ),
-                          child: Center(
-                            child: Text(
-                              date.day.toString(),
-                            ),
-                          ),
-                        ),
+                        selectedBuilder: (context, date, events) {
+                          return (kEvents[date]?.length! ?? 0) > 0
+                              ? Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.all(2.0),
+                                      alignment: Alignment.topLeft,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.15),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        border: Border.all(
+                                          color: Colors.lightBlueAccent,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      // color: Colors.red,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.lightGreen
+                                                    .withOpacity(0.75),
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(5.0),
+                                                  bottomLeft:
+                                                      Radius.circular(5.0),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey
+                                                    .withOpacity(0.15),
+                                                borderRadius: BorderRadius.only(
+                                                  topRight:
+                                                      Radius.circular(10.0),
+                                                  bottomRight:
+                                                      Radius.circular(10.0),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.all(4.0),
+                                      alignment: Alignment.topLeft,
+                                      child: Center(
+                                        child: Text(
+                                          date.day.toString(),
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Container(
+                                  margin: EdgeInsets.all(2.0),
+                                  alignment: Alignment.topLeft,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.15),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                      color: Colors.lightBlueAccent,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  // color: Colors.red,
+                                  child: Center(
+                                    child: Text(
+                                      date.day.toString(),
+                                      style: TextStyle(
+                                          fontSize: 12.0, color: Colors.grey),
+                                    ),
+                                  ),
+                                );
+                        },
                         outsideBuilder: (context, date, events) => Container(
                           margin: EdgeInsets.all(4.0),
                           alignment: Alignment.topLeft,
@@ -318,22 +404,64 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                         },
                         defaultBuilder: (context, date, events) {
                           return (kEvents[date]?.length! ?? 0) > 0
-                              ? Container(
-                                  margin: EdgeInsets.all(4.0),
-                                  alignment: Alignment.topLeft,
-                                  decoration: BoxDecoration(
-                                    color: Colors.lightGreen.withOpacity(0.75),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  // color: Colors.red,
-                                  child: Center(
-                                    child: Text(
-                                      date.day.toString(),
-                                      style: TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.black87),
+                              ? Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.all(4.0),
+                                      alignment: Alignment.topLeft,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.15),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      // color: Colors.red,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.lightGreen
+                                                    .withOpacity(0.75),
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(10.0),
+                                                  bottomLeft:
+                                                      Radius.circular(10.0),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey
+                                                    .withOpacity(0.15),
+                                                borderRadius: BorderRadius.only(
+                                                  topRight:
+                                                      Radius.circular(10.0),
+                                                  bottomRight:
+                                                      Radius.circular(10.0),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                    Container(
+                                      margin: EdgeInsets.all(4.0),
+                                      alignment: Alignment.topLeft,
+                                      child: Center(
+                                        child: Text(
+                                          date.day.toString(),
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 )
                               : Container(
                                   margin: EdgeInsets.all(4.0),
@@ -360,121 +488,77 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                     //   thickness: 1.0,
                     // ),
                     // const SizedBox(height: 10.0),
-                    Column(
-                      children: [
-                        Center(
-                          child: Text(
-                            " Mar 14, Monday ",
-                            style: TextStyle(
-                              fontSize: textTheme.titleSmall!.fontSize,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.lightBlueAccent,
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.lightBlueAccent.withOpacity(0.10),
+                        // color: Colors.grey.withOpacity(0.10),
+                      ),
+                      child: Column(
+                        children: [
+                          Center(
+                            child: Text(
+                              "Mar 14, Monday ",
+                              style: TextStyle(
+                                fontSize: textTheme.titleSmall!.fontSize,
+                                fontWeight: FontWeight.bold,
+                                // color: Colors.lightBlueAccent,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            OutlinedButton(
-                              onPressed: () async {},
-                              style: OutlinedButton.styleFrom(
-                                backgroundColor: Colors.blueAccent,
-                                side: const BorderSide(
-                                    width: 1.5, color: Colors.blue),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                              ),
-                              child: Row(
-                                children: const [
-                                  Text(
-                                    "No Service",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          ToggleButtons(
+                            direction: Axis.horizontal,
+                            onPressed: (int index) {
+                              setState(() {
+                                // The button that is tapped is set to true, and the others to false.
+                                for (int i = 0;
+                                    i < _selectedFruits.length;
+                                    i++) {
+                                  _selectedFruits[i] = i == index;
+                                }
+                              });
+                            },
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
+                            selectedBorderColor: Colors.blueAccent[700],
+                            selectedColor: Colors.white,
+                            fillColor: Colors.blueAccent[200],
+                            color: Colors.blueAccent[400],
+                            constraints: const BoxConstraints(
+                              minHeight: 35.0,
+                              minWidth: 100.0,
                             ),
-                            OutlinedButton(
-                              onPressed: () async {},
-                              style: OutlinedButton.styleFrom(
-                                backgroundColor: Colors.blueAccent,
-                                side: const BorderSide(
-                                    width: 1.5, color: Colors.blue),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                              ),
-                              child: Row(
-                                children: const [
-                                  Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  Text(
-                                    "Half Day ",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            OutlinedButton(
-                              onPressed: () async {},
-                              style: OutlinedButton.styleFrom(
-                                backgroundColor: Colors.blueAccent,
-                                side: const BorderSide(
-                                    width: 1.5, color: Colors.blue),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                              ),
-                              child: Row(
-                                children: const [
-                                  Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  Text(
-                                    "Full Day ",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            isSelected: _selectedFruits,
+                            children: fruits,
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 10.0),
                     Divider(
-                      color: Colors.grey,
+                      color: Colors.grey.withOpacity(0.5),
                       thickness: 1.0,
                     ),
-                    const SizedBox(height: 10.0),
+                    const SizedBox(height: 5.0),
                     Container(
-                      padding: EdgeInsets.all(15.0),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      // decoration: BoxDecoration(
+                      //   color: Colors.grey.withOpacity(0.15),
+                      //   borderRadius: BorderRadius.circular(10),
+                      // ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             widget.image,
-                            style: TextStyle(fontSize: 18.0),
+                            style: TextStyle(fontSize: 25.0),
                           ),
                           SizedBox(
                             width: 5.0,
@@ -489,7 +573,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                           ),
                           Spacer(),
                           Text(
-                            "20 Days  ",
+                            "20.5 Days  ",
                             style: TextStyle(
                               color: Colors.green,
                               fontSize: textTheme.labelLarge!.fontSize,

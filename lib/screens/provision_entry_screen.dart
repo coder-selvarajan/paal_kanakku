@@ -213,16 +213,17 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                     Divider(
                       color: Colors.grey,
                       thickness: 1.0,
+                      height: 6.0,
                     ),
-                    const SizedBox(height: 5.0),
-                    Text(
-                      "Select a Date & Add ${widget.provision}: ",
-                      style: TextStyle(
-                        // color: Colors.grey,
-                        fontSize: textTheme.titleSmall!.fontSize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    // const SizedBox(height: 5.0),
+                    // Text(
+                    //   "Select a Date & Add ${widget.provision}: ",
+                    //   style: TextStyle(
+                    //     // color: Colors.grey,
+                    //     fontSize: textTheme.titleSmall!.fontSize,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
                     // const SizedBox(height: 5.0),
                     TableCalendar<Event>(
                       firstDay: kFirstDay,
@@ -375,61 +376,85 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                       ),
                     ),
                     const SizedBox(height: 15.0),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Feb 27, Monday ",
-                              style: TextStyle(
-                                fontSize: textTheme.titleSmall!.fontSize,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.lightBlueAccent,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            // Text(
-                            //   "1L = Rs 60",
-                            //   style: TextStyle(
-                            //       color: Colors.grey,
-                            //       fontSize: textTheme.caption!.fontSize),
-                            // ),
-                          ],
-                        ),
-                        Spacer(),
-                        OutlinedButton(
-                          onPressed: () async {},
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            side: const BorderSide(
-                                width: 1.5, color: Colors.blue),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                          ),
-                          child: Row(
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.lightBlueAccent.withOpacity(0.15),
+                        // color: Colors.blueGrey.withOpacity(0.10),
+                      ),
+                      child: Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(
-                                Icons.add,
-                                color: Colors.white,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // Text(
+                                  //   "Date: ",
+                                  //   style: TextStyle(
+                                  //     color: Colors.black45,
+                                  //   ),
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 5.0,
+                                  // ),
+                                  Text(
+                                    "Feb 27, Mon ",
+                                    style: TextStyle(
+                                      fontSize: textTheme.titleSmall!.fontSize,
+                                      fontWeight: FontWeight.bold,
+                                      // color: Colors.lightBlueAccent,
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
-                                width: 5.0,
+                                height: 5.0,
                               ),
-                              Text(
-                                "Add ${widget.provision}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
+                              // Text(
+                              //   "1L = Rs 60",
+                              //   style: TextStyle(
+                              //       color: Colors.grey,
+                              //       fontSize: textTheme.caption!.fontSize),
+                              // ),
                             ],
                           ),
-                        ),
-                      ],
+                          Spacer(),
+                          OutlinedButton(
+                            onPressed: () async {},
+                            style: OutlinedButton.styleFrom(
+                              backgroundColor: Colors.blueAccent,
+                              side: const BorderSide(
+                                  width: 1.5, color: Colors.blue),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                            ),
+                            child: Row(
+                              children: [
+                                // Icon(
+                                //   Icons.add,
+                                //   color: Colors.white,
+                                // ),
+                                // SizedBox(
+                                //   width: 5.0,
+                                // ),
+                                Text(
+                                  "Add ${widget.provision}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 10.0),
+                    const SizedBox(height: 15.0),
                     ValueListenableBuilder<List<Event>>(
                       valueListenable: _selectedEvents,
                       builder: (context, value, _) {
@@ -437,7 +462,7 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                           return Center(
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Text("-  No ${widget.provision}  -",
+                              child: Text("-  No ${widget.provision} Added  -",
                                   style: TextStyle(
                                       fontSize: textTheme.subtitle1!.fontSize,
                                       color: Colors.grey)),
@@ -445,55 +470,75 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                           );
                         }
                         return Column(
+                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ListView.builder(
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  " Entries :",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Spacer(),
+                                Text(
+                                  "Total(1L)  =  Rs60  ",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: textTheme.caption!.fontSize,
+                                    // fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ListView.separated(
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: value.length,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.only(bottom: 5.0),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10.0, vertical: 0.0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    color: Colors.grey.withOpacity(0.15),
-                                  ),
-                                  child: ListTile(
-                                    visualDensity: VisualDensity(
-                                        horizontal: 0, vertical: -2),
-                                    contentPadding: EdgeInsets.all(0.0),
-                                    onTap: () => print('${value[index]}'),
-                                    title: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          widget.image,
-                                          style: textTheme.headline6,
-                                        ),
-                                        SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Text(
-                                            '${value[index]} ${widget.provision}'),
-                                        Spacer(),
-                                        Text("Rs 30"),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Icon(
-                                          Icons.close_rounded,
-                                          color: Colors.redAccent,
-                                          size: 20.0,
-                                        ),
-                                      ],
-                                    ),
+                                return ListTile(
+                                  visualDensity: VisualDensity(
+                                      horizontal: 0, vertical: -2),
+                                  contentPadding: EdgeInsets.all(0.0),
+                                  onTap: () => print('${value[index]}'),
+                                  title: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        widget.image,
+                                        style: textTheme.headline6,
+                                      ),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                          '${value[index]} ${widget.provision}'),
+                                      Spacer(),
+                                      Text("Rs 30"),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Icon(
+                                        Icons.close_rounded,
+                                        color: Colors.redAccent,
+                                        size: 20.0,
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
+                              separatorBuilder: (_, id) => const Divider(
+                                color: Colors.black26,
+                                height: 0.0,
+                              ),
                             ),
                             // Text(
                             //   "1L = Rs 60",
@@ -502,18 +547,21 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                             //       fontSize: textTheme.caption!.fontSize),
                             // ),
                             // Divider(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "Total  ·  2L  ·  Rs 60  ",
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: textTheme.caption!.fontSize),
-                                ),
-                                // Text("Rs 60"),
-                              ],
-                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.end,
+                            //   children: [
+                            //     SizedBox(
+                            //       height: 5,
+                            //     ),
+                            //     Text(
+                            //       "  Total (2L)  =  Rs 60  ",
+                            //       style: TextStyle(
+                            //           color: Colors.grey,
+                            //           fontSize: textTheme.caption!.fontSize),
+                            //     ),
+                            //     // Text("Rs 60"),
+                            //   ],
+                            // ),
                           ],
                         );
                       },
