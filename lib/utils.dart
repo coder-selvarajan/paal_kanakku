@@ -23,8 +23,8 @@ final kEvents = LinkedHashMap<DateTime, List<Event>>(
   hashCode: getHashCode,
 )..addAll(_kEventSource);
 
-final _kEventSource = Map.fromIterable(List.generate(50, (index) => index),
-    key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item * 4),
+final _kEventSource = Map.fromIterable(List.generate(80, (index) => index),
+    key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item * 3),
     value: (item) =>
         List.generate(item % 5 + 1, (index) => Event('${index + 1} | 0.5L ')))
   ..addAll({

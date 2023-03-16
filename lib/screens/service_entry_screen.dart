@@ -44,6 +44,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+  DateTime _selectedDay = DateTime.now();
 
   @override
   void initState() {
@@ -88,7 +89,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
       // } else {
       //   _selectedDays.add(selectedDay);
       // }
-
+      _selectedDay = selectedDay;
       _focusedDay.value = focusedDay;
       _rangeStart = null;
       _rangeEnd = null;
@@ -284,6 +285,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                           ),
                         ),
                         selectedBuilder: (context, date, events) {
+                          print(kEvents[date]?.length! ?? 0);
                           return (kEvents[date]?.length! ?? 0) > 0
                               ? Stack(
                                   children: <Widget>[
@@ -318,8 +320,14 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                           Expanded(
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                color: Colors.grey
-                                                    .withOpacity(0.15),
+                                                color:
+                                                    ((kEvents[date]?.length! ??
+                                                                0) >
+                                                            2
+                                                        ? Colors.lightGreen
+                                                            .withOpacity(0.75)
+                                                        : Colors.grey
+                                                            .withOpacity(0.15)),
                                                 borderRadius: BorderRadius.only(
                                                   topRight:
                                                       Radius.circular(10.0),
@@ -338,10 +346,20 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                       child: Center(
                                         child: Text(
                                           date.day.toString(),
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color: Colors.black87,
-                                          ),
+                                          style: (DateFormat.yMMMd()
+                                                      .format(_selectedDay) ==
+                                                  DateFormat.yMMMd()
+                                                      .format(DateTime.now())
+                                              ? TextStyle(
+                                                  fontSize: 12.0,
+                                                  color: Colors.red)
+                                              : TextStyle(
+                                                  fontSize: 12.0,
+                                                  color: Colors.black87)),
+                                          // style: TextStyle(
+                                          //   fontSize: 12.0,
+                                          //   color: Colors.black87,
+                                          // ),
                                         ),
                                       ),
                                     ),
@@ -434,8 +452,14 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                           Expanded(
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                color: Colors.grey
-                                                    .withOpacity(0.15),
+                                                color:
+                                                    (((kEvents[date]?.length! ??
+                                                                0) >
+                                                            3)
+                                                        ? Colors.lightGreen
+                                                            .withOpacity(0.75)
+                                                        : Colors.grey
+                                                            .withOpacity(0.15)),
                                                 borderRadius: BorderRadius.only(
                                                   topRight:
                                                       Radius.circular(10.0),

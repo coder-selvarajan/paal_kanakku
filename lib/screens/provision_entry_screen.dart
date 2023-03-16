@@ -36,6 +36,7 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+  DateTime _selectedDay = DateTime.now();
 
   @override
   void initState() {
@@ -81,6 +82,7 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
       //   _selectedDays.add(selectedDay);
       // }
 
+      _selectedDay = selectedDay;
       _focusedDay.value = focusedDay;
       _rangeStart = null;
       _rangeEnd = null;
@@ -126,11 +128,11 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                 title: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text("📖"),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
-                    Text("Daily Provisions Entry"),
+                    // Text("📖"),
+                    // const SizedBox(
+                    //   width: 10.0,
+                    // ),
+                    Text("Add Daily Provisions"),
                   ],
                 ),
                 elevation: 0,
@@ -265,14 +267,14 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                       calendarBuilders: CalendarBuilders(
                         todayBuilder: (context, date, events) => Container(
                           margin: EdgeInsets.all(4.0),
-                          alignment: Alignment.topLeft,
+                          alignment: Alignment.topCenter,
                           decoration: BoxDecoration(
                             color: Colors.grey.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           // color: Colors.red,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Text(
                               date.day.toString(),
                               style:
@@ -282,22 +284,26 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                         ),
                         selectedBuilder: (context, date, events) => Container(
                           margin: EdgeInsets.all(4.0),
-                          alignment: Alignment.topLeft,
+                          alignment: Alignment.topCenter,
                           decoration: BoxDecoration(
                             color: Colors.lightBlueAccent.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           // color: Colors.red,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Text(
                               date.day.toString(),
+                              style: (DateFormat.yMMMd().format(_selectedDay) ==
+                                      DateFormat.yMMMd().format(DateTime.now())
+                                  ? TextStyle(fontSize: 12.0, color: Colors.red)
+                                  : TextStyle(fontSize: 12.0)),
                             ),
                           ),
                         ),
                         outsideBuilder: (context, date, events) => Container(
                           margin: EdgeInsets.all(4.0),
-                          alignment: Alignment.topLeft,
+                          alignment: Alignment.topCenter,
                           decoration: BoxDecoration(
                             // color: Colors.grey.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(10.0),
@@ -305,7 +311,7 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                                 color: Colors.grey.withOpacity(0.15), width: 2),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Text(
                               date.day.toString(),
                               style: TextStyle(
@@ -314,6 +320,65 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                             ),
                           ),
                         ),
+                        // singleMarkerBuilder: (context, date, _) {
+                        //   return Container(
+                        //     decoration: BoxDecoration(
+                        //         shape: BoxShape.circle,
+                        //         color: _selectedDays.contains(date)
+                        //             ? Colors.indigo
+                        //             : Colors.indigo), //Change color
+                        //     width: 6.0,
+                        //     height: 6.0,
+                        //     margin: EdgeInsets.only(
+                        //         left: 1.5, right: 1.5, bottom: 5),
+                        //     padding: EdgeInsets.only(bottom: 2.0),
+                        //   );
+                        // },
+                        markerBuilder: (context, date, events) {
+                          if ((kEvents[date]?.length! ?? 0) == 0)
+                            return SizedBox();
+                          return Container(
+                            padding: EdgeInsets.only(left: 5, right: 5),
+                            margin: const EdgeInsets.only(top: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: ((kEvents[date]?.length! ?? 0) > 3
+                                      ? 3
+                                      : kEvents[date]?.length!),
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      // margin: const EdgeInsets.only(top: 20),
+                                      padding: const EdgeInsets.all(1),
+                                      child: Container(
+                                        // height: 7, // for vertical axis
+                                        width: 5, // for horizontal axis
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.indigo,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                ((kEvents[date]?.length! ?? 0) > 3
+                                    ? Text(
+                                        "+",
+                                        style: TextStyle(
+                                            color: Colors.indigo[500],
+                                            fontSize:
+                                                textTheme.caption!.fontSize),
+                                      )
+                                    : SizedBox()),
+                              ],
+                            ),
+                          );
+                        },
+
                         // markerBuilder: (context, date, events) {
                         //   return (kEvents[date]?.length! ?? 0) > 0
                         //       ? Container(
@@ -358,14 +423,14 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                         // },
                         defaultBuilder: (context, date, events) => Container(
                           margin: EdgeInsets.all(4.0),
-                          alignment: Alignment.topLeft,
+                          alignment: Alignment.topCenter,
                           decoration: BoxDecoration(
                             color: Colors.grey.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           // color: Colors.red,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+                            padding: const EdgeInsets.all(5.0),
                             child: Text(
                               date.day.toString(),
                               style:
@@ -389,34 +454,40 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                       child: Row(
                         children: [
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  // Text(
-                                  //   "Date: ",
-                                  //   style: TextStyle(
-                                  //     color: Colors.black45,
-                                  //   ),
-                                  // ),
-                                  // SizedBox(
-                                  //   height: 5.0,
-                                  // ),
                                   Text(
-                                    "Feb 27, Mon ",
+                                    DateFormat.MMMMd().format(_selectedDay),
                                     style: TextStyle(
                                       fontSize: textTheme.titleSmall!.fontSize,
                                       fontWeight: FontWeight.bold,
                                       // color: Colors.lightBlueAccent,
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Text(
+                                    DateFormat.EEEE().format(_selectedDay),
+                                    style: TextStyle(
+                                      color: Colors.black45,
+                                    ),
+                                    // style: TextStyle(
+                                    //   fontSize: textTheme.titleSmall!.fontSize,
+                                    //   fontWeight: FontWeight.bold,
+                                    //   // color: Colors.lightBlueAccent,
+                                    // ),
+                                  ),
                                 ],
                               ),
-                              SizedBox(
-                                height: 5.0,
-                              ),
+                              // SizedBox(
+                              //   height: 5.0,
+                              // ),
                               // Text(
                               //   "1L = Rs 60",
                               //   style: TextStyle(
