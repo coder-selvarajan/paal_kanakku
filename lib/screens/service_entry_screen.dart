@@ -9,7 +9,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../utils.dart';
 
-const List<Widget> fruits = <Widget>[
+const List<Widget> services = <Widget>[
   Text('No Service'),
   Text('Half Day'),
   Text('Full Day')
@@ -30,8 +30,6 @@ class ServiceEntryScreen extends StatefulWidget {
 }
 
 class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
-  final List<bool> _selectedFruits = <bool>[true, false, false];
-
   late final ValueNotifier<List<Event>> _selectedEvents;
   final ValueNotifier<DateTime> _focusedDay = ValueNotifier(DateTime.now());
   final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
@@ -45,6 +43,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
   DateTime _selectedDay = DateTime.now();
+  List<bool> _selectedService = <bool>[true, false, false];
 
   @override
   void initState() {
@@ -94,6 +93,14 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
       _rangeStart = null;
       _rangeEnd = null;
       _rangeSelectionMode = RangeSelectionMode.toggledOff;
+
+      if ((kEvents[selectedDay]?.length! ?? 0) > 3) {
+        _selectedService = [false, false, true];
+      } else if ((kEvents[selectedDay]?.length! ?? 0) > 0) {
+        _selectedService = [false, true, false];
+      } else {
+        _selectedService = [true, false, false];
+      }
     });
 
     _selectedEvents.value = _getEventsForDays(_selectedDays);
@@ -285,7 +292,6 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                           ),
                         ),
                         selectedBuilder: (context, date, events) {
-                          print(kEvents[date]?.length! ?? 0);
                           return (kEvents[date]?.length! ?? 0) > 0
                               ? Stack(
                                   children: <Widget>[
@@ -323,16 +329,16 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                                 color:
                                                     ((kEvents[date]?.length! ??
                                                                 0) >
-                                                            2
+                                                            3
                                                         ? Colors.lightGreen
                                                             .withOpacity(0.75)
                                                         : Colors.grey
                                                             .withOpacity(0.15)),
                                                 borderRadius: BorderRadius.only(
                                                   topRight:
-                                                      Radius.circular(10.0),
+                                                      Radius.circular(5.0),
                                                   bottomRight:
-                                                      Radius.circular(10.0),
+                                                      Radius.circular(5.0),
                                                 ),
                                               ),
                                             ),
@@ -517,14 +523,16 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                           EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.lightBlueAccent.withOpacity(0.10),
-                        // color: Colors.grey.withOpacity(0.10),
+                        // color: Colors.lightBlueAccent.withOpacity(0.10),
+                        color: Colors.grey.withOpacity(0.10),
+                        border:
+                            Border.all(width: 1, color: Colors.grey.shade300),
                       ),
                       child: Column(
                         children: [
                           Center(
                             child: Text(
-                              "Mar 14, Monday ",
+                              DateFormat.MMMMEEEEd().format(_selectedDay),
                               style: TextStyle(
                                 fontSize: textTheme.titleSmall!.fontSize,
                                 fontWeight: FontWeight.bold,
@@ -541,24 +549,26 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                               setState(() {
                                 // The button that is tapped is set to true, and the others to false.
                                 for (int i = 0;
-                                    i < _selectedFruits.length;
+                                    i < _selectedService.length;
                                     i++) {
-                                  _selectedFruits[i] = i == index;
+                                  _selectedService[i] = i == index;
                                 }
                               });
                             },
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8)),
-                            selectedBorderColor: Colors.blueAccent[700],
+                            selectedBorderColor: Colors.green[700],
                             selectedColor: Colors.white,
-                            fillColor: Colors.blueAccent[200],
-                            color: Colors.blueAccent[400],
+                            // fillColor: Colors.blueAccent[200],
+                            // color: Colors.blueAccent[400],
+                            fillColor: Colors.lightGreen.shade400,
+                            color: Colors.lightGreen,
                             constraints: const BoxConstraints(
                               minHeight: 35.0,
                               minWidth: 100.0,
                             ),
-                            isSelected: _selectedFruits,
-                            children: fruits,
+                            isSelected: _selectedService,
+                            children: services,
                           ),
                         ],
                       ),
