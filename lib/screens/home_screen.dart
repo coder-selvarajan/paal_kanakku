@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:paal_kanakku/screens/add_provision_screen.dart';
+import 'package:paal_kanakku/screens/add_service_screen.dart';
 import 'package:paal_kanakku/screens/goods_entry.dart';
 import 'package:paal_kanakku/screens/service_entry_screen.dart';
 
@@ -213,7 +215,14 @@ class HomeScreen extends StatelessWidget {
                         height: 5.0,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddProvision(),
+                            ),
+                          );
+                        },
                         child: Text(
                           "+ Setup New Provision",
                           style: TextStyle(
@@ -268,7 +277,14 @@ class HomeScreen extends StatelessWidget {
                         height: 5.0,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddService(),
+                            ),
+                          );
+                        },
                         child: Text(
                           "+ Setup New Service",
                           style: TextStyle(
