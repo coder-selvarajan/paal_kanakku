@@ -87,82 +87,92 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            child: Container(
+                      IntrinsicHeight(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10.0),
                               decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
                                 color: Colors.lightBlueAccent.withOpacity(0.35),
-                                borderRadius: BorderRadius.circular(15.0),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "March 2023",
-                                    style: TextStyle(
-                                      fontSize: textTheme.titleMedium!.fontSize,
-                                      fontWeight: FontWeight.bold,
-                                      // color: Colors.lightBlue,
+                              child: Icon(Icons.chevron_left),
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color:
+                                      Colors.lightBlueAccent.withOpacity(0.35),
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "March 2023",
+                                      style: TextStyle(
+                                        fontSize:
+                                            textTheme.titleMedium!.fontSize,
+                                        fontWeight: FontWeight.bold,
+                                        // color: Colors.lightBlue,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    "As on Mar 4 ",
-                                    style: TextStyle(
-                                      fontSize: textTheme.caption!.fontSize,
-                                      // fontWeight: FontWeight.bold,
-                                      // color: Colors.lightBlue,
+                                    SizedBox(
+                                      height: 10.0,
                                     ),
-                                  ),
-                                ],
+                                    Text(
+                                      "Settled: ₹400  |  Pending : 4200",
+                                      style: TextStyle(
+                                        fontSize: textTheme.caption!.fontSize,
+                                        // fontWeight: FontWeight.bold,
+                                        // color: Colors.lightBlue,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.lightBlueAccent.withOpacity(0.35),
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "On Credit:  Rs 4300  ",
-                                    style: TextStyle(
-                                      fontSize: textTheme.bodyMedium!.fontSize,
-                                      // color: Colors.lightBlue,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    "Settled:  Rs 560  ",
-                                    style: TextStyle(
-                                      fontSize: textTheme.bodyMedium!.fontSize,
-                                      // color: Colors.lightBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            SizedBox(
+                              width: 10.0,
                             ),
-                          ),
-                        ],
+                            Container(
+                              padding: EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.lightBlueAccent.withOpacity(0.35),
+                              ),
+                              child: Icon(Icons.chevron_right),
+                            ),
+                          ],
+                        ),
                       ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+                      // Container(
+                      //   width: double.infinity,
+                      //   padding: EdgeInsets.all(20.0),
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(10.0),
+                      //     color: Colors.grey.withOpacity(0.15),
+                      //   ),
+                      //   child: Text(
+                      //     "Settled: ₹400  |  Pending : 4200",
+                      //     style: TextStyle(
+                      //       fontSize: textTheme.caption!.fontSize,
+                      //       // fontWeight: FontWeight.bold,
+                      //       // color: Colors.lightBlue,
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
-                        height: 20,
+                        height: 30,
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,

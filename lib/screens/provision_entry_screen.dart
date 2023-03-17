@@ -195,7 +195,7 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                                     height: 5.0,
                                   ),
                                   Text(
-                                    "Feb 2023  ·  15L  ·  Rs 1200",
+                                    "Settled = Rs500  -  Pending = Rs1200",
                                     style: TextStyle(
                                         fontSize: textTheme.subtitle2!.fontSize,
                                         color: Colors.black54),
@@ -217,16 +217,7 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                       thickness: 1.0,
                       height: 6.0,
                     ),
-                    // const SizedBox(height: 5.0),
-                    // Text(
-                    //   "Select a Date & Add ${widget.provision}: ",
-                    //   style: TextStyle(
-                    //     // color: Colors.grey,
-                    //     fontSize: textTheme.titleSmall!.fontSize,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 5.0),
+                    const SizedBox(height: 5.0),
                     TableCalendar<Event>(
                       firstDay: kFirstDay,
                       lastDay: kLastDay,
@@ -551,14 +542,14 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                             Row(
                               children: [
                                 Text(
-                                  " Entries :",
+                                  " Entries (${value.length}) :",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 Spacer(),
                                 Text(
-                                  "Total(1L)  =  Rs60  ",
+                                  "1 Litre - Rs60  ",
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: textTheme.caption!.fontSize,
@@ -638,6 +629,29 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                           ],
                         );
                       },
+                    ),
+                    const SizedBox(height: 10.0),
+                    Divider(
+                      thickness: 1.0,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          " Total:",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "15 Litres",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Rs1200 ",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ],
                 ),

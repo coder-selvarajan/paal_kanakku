@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paal_kanakku/screens/EmojiPicker.dart';
 
 import '../models/isar_service.dart';
 
@@ -121,10 +122,20 @@ class AddProvision extends StatelessWidget {
                             color: Colors.grey.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: Text(
-                            "🥬",
-                            style: TextStyle(
-                                fontSize: textTheme.headline5!.fontSize),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => IconSelector(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "🥬",
+                              style: TextStyle(
+                                  fontSize: textTheme.headline5!.fontSize),
+                            ),
                           ),
                         ),
                       ],
