@@ -153,7 +153,7 @@ class AddProvision extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Quantity ",
+                                "Unit ",
                                 style: TextStyle(
                                   fontSize: textTheme.titleMedium!.fontSize,
                                   fontWeight: FontWeight.bold,
@@ -197,7 +197,7 @@ class AddProvision extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Quantity String",
+                                "Unit Price",
                                 style: TextStyle(
                                   fontSize: textTheme.titleMedium!.fontSize,
                                   fontWeight: FontWeight.bold,
@@ -210,11 +210,11 @@ class AddProvision extends StatelessWidget {
                                 decoration: InputDecoration(
                                   filled: true, //<-- SEE HERE
                                   fillColor: Colors.grey.withOpacity(0.2),
-                                  hintText: "Ex: Litre, KG, Item",
-                                  // prefixIcon: const Padding(
-                                  //   padding: EdgeInsets.all(8.0),
-                                  //   child: Icon(Icons.shop),
-                                  // ),
+                                  hintText: "Ex: 50, 100",
+                                  prefixIcon: const Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: Icon(Icons.currency_rupee),
+                                  ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                     borderRadius: BorderRadius.circular(10.0),
@@ -239,7 +239,7 @@ class AddProvision extends StatelessWidget {
                       height: 20,
                     ),
                     Text(
-                      "Quantity Price",
+                      "Unit Measurement",
                       style: TextStyle(
                         fontSize: textTheme.titleMedium!.fontSize,
                         fontWeight: FontWeight.bold,
@@ -252,11 +252,11 @@ class AddProvision extends StatelessWidget {
                       decoration: InputDecoration(
                         filled: true, //<-- SEE HERE
                         fillColor: Colors.grey.withOpacity(0.2),
-                        hintText: "Ex: 50, 100",
-                        prefixIcon: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.currency_rupee),
-                        ),
+                        hintText: "Ex: Litre, KG, Pocket, Item",
+                        // prefixIcon: const Padding(
+                        //   padding: EdgeInsets.all(8.0),
+                        //   child: Icon(Icons.currency_rupee),
+                        // ),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(15.0),
@@ -301,7 +301,7 @@ class AddProvision extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Min Qty Per Day ",
+                                          "Min Unit Per Day ",
                                           style: TextStyle(
                                             fontSize:
                                                 textTheme.titleMedium!.fontSize,
@@ -353,7 +353,7 @@ class AddProvision extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Max Qty Per Day",
+                                          "Max Unit Per Day",
                                           style: TextStyle(
                                             fontSize:
                                                 textTheme.titleMedium!.fontSize,
@@ -368,7 +368,7 @@ class AddProvision extends StatelessWidget {
                                             filled: true, //<-- SEE HERE
                                             fillColor:
                                                 Colors.grey.withOpacity(0.2),
-                                            hintText: "Ex: Litre, Kg",
+                                            hintText: "Ex: 10, 20",
                                             // prefixIcon: const Padding(
                                             //   padding: EdgeInsets.all(8.0),
                                             //   child: Icon(Icons.shop),
@@ -412,10 +412,12 @@ class AddProvision extends StatelessWidget {
                                 height: 10,
                               ),
                               TextFormField(
+                                maxLines: 3,
+                                keyboardType: TextInputType.multiline,
                                 decoration: InputDecoration(
                                   filled: true, //<-- SEE HERE
                                   fillColor: Colors.grey.withOpacity(0.2),
-                                  hintText: "Additional information..",
+                                  hintText: "",
                                   // prefixIcon: const Padding(
                                   //   padding: EdgeInsets.all(8.0),
                                   //   child: Icon(Icons.edit_rounded),

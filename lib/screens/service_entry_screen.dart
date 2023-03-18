@@ -210,10 +210,33 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                     height: 5.0,
                                   ),
                                   Text(
-                                    "Shanthi - 20.5 days",
+                                    "Shanthi",
                                     style: TextStyle(
                                         fontSize: textTheme.subtitle2!.fontSize,
                                         color: Colors.black54),
+                                  ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "March  Attendance -  ",
+                                        style: TextStyle(
+                                            fontSize:
+                                                textTheme.subtitle2!.fontSize,
+                                            color: Colors.black54),
+                                      ),
+                                      Text(
+                                        "20.5 days",
+                                        style: TextStyle(
+                                          fontSize:
+                                              textTheme.subtitle2!.fontSize,
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -558,11 +581,15 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8)),
                             selectedBorderColor: Colors.green[700],
-                            selectedColor: Colors.white,
+                            selectedColor: Colors.black87,
                             // fillColor: Colors.blueAccent[200],
                             // color: Colors.blueAccent[400],
-                            fillColor: Colors.lightGreen.shade400,
-                            color: Colors.lightGreen,
+                            fillColor: _selectedService[0] == true
+                                ? Colors.grey.withOpacity(0.3)
+                                : _selectedService[1] == true
+                                    ? Colors.lightGreen.shade300
+                                    : Colors.lightGreen.shade300,
+                            color: Colors.black87,
                             constraints: const BoxConstraints(
                               minHeight: 35.0,
                               minWidth: 100.0,
@@ -573,7 +600,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10.0),
+                    const SizedBox(height: 20.0),
                     Divider(
                       color: Colors.grey.withOpacity(0.5),
                       thickness: 1.0,
@@ -587,31 +614,71 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                       //   borderRadius: BorderRadius.circular(10),
                       // ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             widget.image,
                             style: TextStyle(fontSize: 25.0),
                           ),
                           SizedBox(
-                            width: 5.0,
+                            width: 20.0,
                           ),
-                          Text(
-                            " Total Attendance: ",
-                            style: TextStyle(
-                              fontSize: textTheme.titleSmall!.fontSize,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          Spacer(),
-                          Text(
-                            "20.5 Days  ",
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: textTheme.labelLarge!.fontSize,
-                              fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      " March - 'Half Day' Count: ",
+                                      style: TextStyle(
+                                        fontSize:
+                                            textTheme.titleSmall!.fontSize,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    Text(
+                                      "5.5 ",
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                        fontSize:
+                                            textTheme.labelLarge!.fontSize,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      " March - 'Full Day' Count: ",
+                                      style: TextStyle(
+                                        fontSize:
+                                            textTheme.titleSmall!.fontSize,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    Text(
+                                      "15 ",
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                        fontSize:
+                                            textTheme.labelLarge!.fontSize,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ],

@@ -177,10 +177,10 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                             children: [
                               Text(
                                 widget.image,
-                                style: TextStyle(fontSize: 40.0),
+                                style: TextStyle(fontSize: 45.0),
                               ),
                               SizedBox(
-                                width: 10.0,
+                                width: 15.0,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,11 +194,60 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                                   SizedBox(
                                     height: 5.0,
                                   ),
-                                  Text(
-                                    "Settled = Rs500  -  Pending = Rs1200",
-                                    style: TextStyle(
-                                        fontSize: textTheme.subtitle2!.fontSize,
-                                        color: Colors.black54),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "March (15 Litres)  =  ",
+                                        style: TextStyle(
+                                            fontSize:
+                                                textTheme.subtitle2!.fontSize,
+                                            color: Colors.black54),
+                                      ),
+                                      Text(
+                                        "₹1700",
+                                        style: TextStyle(
+                                          fontSize:
+                                              textTheme.subtitle2!.fontSize,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Settled: ",
+                                        style: TextStyle(
+                                            fontSize:
+                                                textTheme.subtitle2!.fontSize,
+                                            color: Colors.black54),
+                                      ),
+                                      Text(
+                                        "₹500",
+                                        style: TextStyle(
+                                            fontSize:
+                                                textTheme.subtitle2!.fontSize,
+                                            color: Colors.green),
+                                      ),
+                                      Text(
+                                        "-  Credit: ",
+                                        style: TextStyle(
+                                            fontSize:
+                                                textTheme.subtitle2!.fontSize,
+                                            color: Colors.black54),
+                                      ),
+                                      Text(
+                                        "₹1200",
+                                        style: TextStyle(
+                                            fontSize:
+                                                textTheme.subtitle2!.fontSize,
+                                            color: Colors.red),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -211,7 +260,7 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5.0),
+                    const SizedBox(height: 10.0),
                     Divider(
                       color: Colors.grey,
                       thickness: 1.0,
@@ -548,14 +597,14 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                                   ),
                                 ),
                                 Spacer(),
-                                Text(
-                                  "1 Litre - Rs60  ",
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: textTheme.caption!.fontSize,
-                                    // fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                // Text(
+                                //   "1 Litre - Rs60  ",
+                                //   style: TextStyle(
+                                //     color: Colors.grey,
+                                //     fontSize: textTheme.caption!.fontSize,
+                                //     // fontWeight: FontWeight.bold,
+                                //   ),
+                                // ),
                               ],
                             ),
                             SizedBox(
@@ -586,7 +635,7 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                                       Text(
                                           '${value[index]} ${widget.provision}'),
                                       Spacer(),
-                                      Text("Rs 30"),
+                                      Text("₹ 30"),
                                       SizedBox(
                                         width: 20,
                                       ),
@@ -640,15 +689,16 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          " Total:",
+                          " Total (1 Litre)",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "15 Litres",
+                          // "15 Litres",
+                          "",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "Rs1200 ",
+                          "₹ 80 ",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],

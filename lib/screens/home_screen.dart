@@ -204,16 +204,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         height: 15.0,
                       ),
-                      HomeItemTile(
-                        textTheme: textTheme,
-                        icon: "🥬",
-                        title: "Greens",
-                        subtitle: "20 Kattu - Rs 200",
-                        itemType: ItemType.provision,
-                      ),
-                      SizedBox(
-                        height: 15.0,
-                      ),
+
                       HomeItemTile(
                         textTheme: textTheme,
                         icon: "💧",
@@ -267,9 +258,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                       HomeItemTile(
                         textTheme: textTheme,
-                        icon: "🙋🏻‍♀️",
+                        icon: "👩🏻‍🍼",
                         title: "Baby Sitter",
-                        subtitle: "25 Days - Rs 3200",
+                        subtitle: "Monthly - ₹8000",
                         itemType: ItemType.service,
                       ),
                       SizedBox(
@@ -277,9 +268,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                       HomeItemTile(
                         textTheme: textTheme,
-                        icon: "🚗",
-                        title: "Car Wash",
-                        subtitle: "Monthly - Rs 500",
+                        icon: "🙋🏻‍♀️",
+                        title: "Maid",
+                        subtitle: "Monthly - ₹4000",
                         itemType: ItemType.service,
                       ),
 
