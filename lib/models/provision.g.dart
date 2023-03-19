@@ -17,55 +17,50 @@ const ProvisionSchema = CollectionSchema(
   name: r'Provision',
   id: 8475410124999712260,
   properties: {
-    r'description': PropertySchema(
-      id: 0,
-      name: r'description',
-      type: IsarType.string,
-    ),
     r'icon': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'icon',
       type: IsarType.string,
     ),
-    r'maximumMeasurementPerDay': PropertySchema(
+    r'maxUnitPerDay': PropertySchema(
+      id: 1,
+      name: r'maxUnitPerDay',
+      type: IsarType.double,
+    ),
+    r'minUnitPerDay': PropertySchema(
       id: 2,
-      name: r'maximumMeasurementPerDay',
-      type: IsarType.long,
-    ),
-    r'measurement': PropertySchema(
-      id: 3,
-      name: r'measurement',
-      type: IsarType.long,
-    ),
-    r'measurementWord': PropertySchema(
-      id: 4,
-      name: r'measurementWord',
-      type: IsarType.string,
-    ),
-    r'minimalMeasurementPerDay': PropertySchema(
-      id: 5,
-      name: r'minimalMeasurementPerDay',
-      type: IsarType.long,
+      name: r'minUnitPerDay',
+      type: IsarType.double,
     ),
     r'name': PropertySchema(
-      id: 6,
+      id: 3,
       name: r'name',
       type: IsarType.string,
     ),
-    r'price': PropertySchema(
-      id: 7,
-      name: r'price',
-      type: IsarType.double,
-    ),
-    r'shortMeasurementWord': PropertySchema(
-      id: 8,
-      name: r'shortMeasurementWord',
+    r'notes': PropertySchema(
+      id: 4,
+      name: r'notes',
       type: IsarType.string,
     ),
     r'timestamp': PropertySchema(
-      id: 9,
+      id: 5,
       name: r'timestamp',
       type: IsarType.dateTime,
+    ),
+    r'unit': PropertySchema(
+      id: 6,
+      name: r'unit',
+      type: IsarType.double,
+    ),
+    r'unitMeasurementWord': PropertySchema(
+      id: 7,
+      name: r'unitMeasurementWord',
+      type: IsarType.string,
+    ),
+    r'unitPrice': PropertySchema(
+      id: 8,
+      name: r'unitPrice',
+      type: IsarType.double,
     )
   },
   estimateSize: _provisionEstimateSize,
@@ -88,11 +83,10 @@ int _provisionEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.description.length * 3;
   bytesCount += 3 + object.icon.length * 3;
-  bytesCount += 3 + object.measurementWord.length * 3;
   bytesCount += 3 + object.name.length * 3;
-  bytesCount += 3 + object.shortMeasurementWord.length * 3;
+  bytesCount += 3 + object.notes.length * 3;
+  bytesCount += 3 + object.unitMeasurementWord.length * 3;
   return bytesCount;
 }
 
@@ -102,16 +96,15 @@ void _provisionSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.description);
-  writer.writeString(offsets[1], object.icon);
-  writer.writeLong(offsets[2], object.maximumMeasurementPerDay);
-  writer.writeLong(offsets[3], object.measurement);
-  writer.writeString(offsets[4], object.measurementWord);
-  writer.writeLong(offsets[5], object.minimalMeasurementPerDay);
-  writer.writeString(offsets[6], object.name);
-  writer.writeDouble(offsets[7], object.price);
-  writer.writeString(offsets[8], object.shortMeasurementWord);
-  writer.writeDateTime(offsets[9], object.timestamp);
+  writer.writeString(offsets[0], object.icon);
+  writer.writeDouble(offsets[1], object.maxUnitPerDay);
+  writer.writeDouble(offsets[2], object.minUnitPerDay);
+  writer.writeString(offsets[3], object.name);
+  writer.writeString(offsets[4], object.notes);
+  writer.writeDateTime(offsets[5], object.timestamp);
+  writer.writeDouble(offsets[6], object.unit);
+  writer.writeString(offsets[7], object.unitMeasurementWord);
+  writer.writeDouble(offsets[8], object.unitPrice);
 }
 
 Provision _provisionDeserialize(
@@ -121,17 +114,16 @@ Provision _provisionDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Provision();
-  object.description = reader.readString(offsets[0]);
-  object.icon = reader.readString(offsets[1]);
+  object.icon = reader.readString(offsets[0]);
   object.id = id;
-  object.maximumMeasurementPerDay = reader.readLong(offsets[2]);
-  object.measurement = reader.readLong(offsets[3]);
-  object.measurementWord = reader.readString(offsets[4]);
-  object.minimalMeasurementPerDay = reader.readLong(offsets[5]);
-  object.name = reader.readString(offsets[6]);
-  object.price = reader.readDouble(offsets[7]);
-  object.shortMeasurementWord = reader.readString(offsets[8]);
-  object.timestamp = reader.readDateTime(offsets[9]);
+  object.maxUnitPerDay = reader.readDouble(offsets[1]);
+  object.minUnitPerDay = reader.readDouble(offsets[2]);
+  object.name = reader.readString(offsets[3]);
+  object.notes = reader.readString(offsets[4]);
+  object.timestamp = reader.readDateTime(offsets[5]);
+  object.unit = reader.readDouble(offsets[6]);
+  object.unitMeasurementWord = reader.readString(offsets[7]);
+  object.unitPrice = reader.readDouble(offsets[8]);
   return object;
 }
 
@@ -145,23 +137,21 @@ P _provisionDeserializeProp<P>(
     case 0:
       return (reader.readString(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readDouble(offset)) as P;
     case 2:
-      return (reader.readLong(offset)) as P;
+      return (reader.readDouble(offset)) as P;
     case 3:
-      return (reader.readLong(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
-      return (reader.readLong(offset)) as P;
-    case 6:
-      return (reader.readString(offset)) as P;
-    case 7:
-      return (reader.readDouble(offset)) as P;
-    case 8:
-      return (reader.readString(offset)) as P;
-    case 9:
       return (reader.readDateTime(offset)) as P;
+    case 6:
+      return (reader.readDouble(offset)) as P;
+    case 7:
+      return (reader.readString(offset)) as P;
+    case 8:
+      return (reader.readDouble(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -258,140 +248,6 @@ extension ProvisionQueryWhere
 
 extension ProvisionQueryFilter
     on QueryBuilder<Provision, Provision, QFilterCondition> {
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> descriptionEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      descriptionGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> descriptionLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> descriptionBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'description',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      descriptionStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> descriptionEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> descriptionContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'description',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> descriptionMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'description',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      descriptionIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'description',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      descriptionIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'description',
-        value: '',
-      ));
-    });
-  }
-
   QueryBuilder<Provision, Provision, QAfterFilterCondition> iconEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -576,303 +432,133 @@ extension ProvisionQueryFilter
   }
 
   QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      maximumMeasurementPerDayEqualTo(int value) {
+      maxUnitPerDayEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'maximumMeasurementPerDay',
+        property: r'maxUnitPerDay',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      maximumMeasurementPerDayGreaterThan(
-    int value, {
+      maxUnitPerDayGreaterThan(
+    double value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'maximumMeasurementPerDay',
+        property: r'maxUnitPerDay',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      maximumMeasurementPerDayLessThan(
-    int value, {
+      maxUnitPerDayLessThan(
+    double value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'maximumMeasurementPerDay',
+        property: r'maxUnitPerDay',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      maximumMeasurementPerDayBetween(
-    int lower,
-    int upper, {
+      maxUnitPerDayBetween(
+    double lower,
+    double upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'maximumMeasurementPerDay',
+        property: r'maxUnitPerDay',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> measurementEqualTo(
-      int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'measurement',
-        value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementGreaterThan(
-    int value, {
-    bool include = false,
+      minUnitPerDayEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'measurement',
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'minUnitPerDay',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> measurementLessThan(
-    int value, {
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      minUnitPerDayGreaterThan(
+    double value, {
     bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'minUnitPerDay',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      minUnitPerDayLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'measurement',
+        property: r'minUnitPerDay',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> measurementBetween(
-    int lower,
-    int upper, {
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      minUnitPerDayBetween(
+    double lower,
+    double upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'measurement',
+        property: r'minUnitPerDay',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementWordEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'measurementWord',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementWordGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'measurementWord',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementWordLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'measurementWord',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementWordBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'measurementWord',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementWordStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'measurementWord',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementWordEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'measurementWord',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementWordContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'measurementWord',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementWordMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'measurementWord',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementWordIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'measurementWord',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      measurementWordIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'measurementWord',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      minimalMeasurementPerDayEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'minimalMeasurementPerDay',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      minimalMeasurementPerDayGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'minimalMeasurementPerDay',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      minimalMeasurementPerDayLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'minimalMeasurementPerDay',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      minimalMeasurementPerDayBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'minimalMeasurementPerDay',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
+        epsilon: epsilon,
       ));
     });
   }
@@ -1007,84 +693,20 @@ extension ProvisionQueryFilter
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> priceEqualTo(
-    double value, {
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'price',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> priceGreaterThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'price',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> priceLessThan(
-    double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'price',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition> priceBetween(
-    double lower,
-    double upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'price',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      shortMeasurementWordEqualTo(
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> notesEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'shortMeasurementWord',
+        property: r'notes',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      shortMeasurementWordGreaterThan(
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> notesGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1092,15 +714,14 @@ extension ProvisionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'shortMeasurementWord',
+        property: r'notes',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      shortMeasurementWordLessThan(
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> notesLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1108,15 +729,14 @@ extension ProvisionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'shortMeasurementWord',
+        property: r'notes',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      shortMeasurementWordBetween(
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> notesBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -1125,7 +745,7 @@ extension ProvisionQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'shortMeasurementWord',
+        property: r'notes',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1135,71 +755,69 @@ extension ProvisionQueryFilter
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      shortMeasurementWordStartsWith(
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> notesStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'shortMeasurementWord',
+        property: r'notes',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      shortMeasurementWordEndsWith(
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> notesEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'shortMeasurementWord',
+        property: r'notes',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      shortMeasurementWordContains(String value, {bool caseSensitive = true}) {
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> notesContains(
+      String value,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'shortMeasurementWord',
+        property: r'notes',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      shortMeasurementWordMatches(String pattern, {bool caseSensitive = true}) {
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> notesMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'shortMeasurementWord',
+        property: r'notes',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      shortMeasurementWordIsEmpty() {
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> notesIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'shortMeasurementWord',
+        property: r'notes',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterFilterCondition>
-      shortMeasurementWordIsNotEmpty() {
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> notesIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'shortMeasurementWord',
+        property: r'notes',
         value: '',
       ));
     });
@@ -1258,6 +876,267 @@ extension ProvisionQueryFilter
       ));
     });
   }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> unitEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'unit',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> unitGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'unit',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> unitLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'unit',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> unitBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'unit',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitMeasurementWordEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'unitMeasurementWord',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitMeasurementWordGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'unitMeasurementWord',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitMeasurementWordLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'unitMeasurementWord',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitMeasurementWordBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'unitMeasurementWord',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitMeasurementWordStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'unitMeasurementWord',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitMeasurementWordEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'unitMeasurementWord',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitMeasurementWordContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'unitMeasurementWord',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitMeasurementWordMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'unitMeasurementWord',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitMeasurementWordIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'unitMeasurementWord',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitMeasurementWordIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'unitMeasurementWord',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> unitPriceEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'unitPrice',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition>
+      unitPriceGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'unitPrice',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> unitPriceLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'unitPrice',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterFilterCondition> unitPriceBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'unitPrice',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
 }
 
 extension ProvisionQueryObject
@@ -1267,18 +1146,6 @@ extension ProvisionQueryLinks
     on QueryBuilder<Provision, Provision, QFilterCondition> {}
 
 extension ProvisionQuerySortBy on QueryBuilder<Provision, Provision, QSortBy> {
-  QueryBuilder<Provision, Provision, QAfterSortBy> sortByDescription() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'description', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy> sortByDescriptionDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'description', Sort.desc);
-    });
-  }
-
   QueryBuilder<Provision, Provision, QAfterSortBy> sortByIcon() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'icon', Sort.asc);
@@ -1291,55 +1158,27 @@ extension ProvisionQuerySortBy on QueryBuilder<Provision, Provision, QSortBy> {
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      sortByMaximumMeasurementPerDay() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByMaxUnitPerDay() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'maximumMeasurementPerDay', Sort.asc);
+      return query.addSortBy(r'maxUnitPerDay', Sort.asc);
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      sortByMaximumMeasurementPerDayDesc() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByMaxUnitPerDayDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'maximumMeasurementPerDay', Sort.desc);
+      return query.addSortBy(r'maxUnitPerDay', Sort.desc);
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy> sortByMeasurement() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByMinUnitPerDay() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'measurement', Sort.asc);
+      return query.addSortBy(r'minUnitPerDay', Sort.asc);
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy> sortByMeasurementDesc() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByMinUnitPerDayDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'measurement', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy> sortByMeasurementWord() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'measurementWord', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy> sortByMeasurementWordDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'measurementWord', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      sortByMinimalMeasurementPerDay() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'minimalMeasurementPerDay', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      sortByMinimalMeasurementPerDayDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'minimalMeasurementPerDay', Sort.desc);
+      return query.addSortBy(r'minUnitPerDay', Sort.desc);
     });
   }
 
@@ -1355,29 +1194,15 @@ extension ProvisionQuerySortBy on QueryBuilder<Provision, Provision, QSortBy> {
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy> sortByPrice() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByNotes() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'price', Sort.asc);
+      return query.addSortBy(r'notes', Sort.asc);
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy> sortByPriceDesc() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByNotesDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'price', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      sortByShortMeasurementWord() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'shortMeasurementWord', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      sortByShortMeasurementWordDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'shortMeasurementWord', Sort.desc);
+      return query.addSortBy(r'notes', Sort.desc);
     });
   }
 
@@ -1392,22 +1217,47 @@ extension ProvisionQuerySortBy on QueryBuilder<Provision, Provision, QSortBy> {
       return query.addSortBy(r'timestamp', Sort.desc);
     });
   }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByUnit() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unit', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByUnitDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unit', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByUnitMeasurementWord() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unitMeasurementWord', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy>
+      sortByUnitMeasurementWordDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unitMeasurementWord', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByUnitPrice() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unitPrice', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy> sortByUnitPriceDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unitPrice', Sort.desc);
+    });
+  }
 }
 
 extension ProvisionQuerySortThenBy
     on QueryBuilder<Provision, Provision, QSortThenBy> {
-  QueryBuilder<Provision, Provision, QAfterSortBy> thenByDescription() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'description', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy> thenByDescriptionDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'description', Sort.desc);
-    });
-  }
-
   QueryBuilder<Provision, Provision, QAfterSortBy> thenByIcon() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'icon', Sort.asc);
@@ -1432,55 +1282,27 @@ extension ProvisionQuerySortThenBy
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      thenByMaximumMeasurementPerDay() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByMaxUnitPerDay() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'maximumMeasurementPerDay', Sort.asc);
+      return query.addSortBy(r'maxUnitPerDay', Sort.asc);
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      thenByMaximumMeasurementPerDayDesc() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByMaxUnitPerDayDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'maximumMeasurementPerDay', Sort.desc);
+      return query.addSortBy(r'maxUnitPerDay', Sort.desc);
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy> thenByMeasurement() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByMinUnitPerDay() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'measurement', Sort.asc);
+      return query.addSortBy(r'minUnitPerDay', Sort.asc);
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy> thenByMeasurementDesc() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByMinUnitPerDayDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'measurement', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy> thenByMeasurementWord() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'measurementWord', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy> thenByMeasurementWordDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'measurementWord', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      thenByMinimalMeasurementPerDay() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'minimalMeasurementPerDay', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      thenByMinimalMeasurementPerDayDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'minimalMeasurementPerDay', Sort.desc);
+      return query.addSortBy(r'minUnitPerDay', Sort.desc);
     });
   }
 
@@ -1496,29 +1318,15 @@ extension ProvisionQuerySortThenBy
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy> thenByPrice() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByNotes() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'price', Sort.asc);
+      return query.addSortBy(r'notes', Sort.asc);
     });
   }
 
-  QueryBuilder<Provision, Provision, QAfterSortBy> thenByPriceDesc() {
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByNotesDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'price', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      thenByShortMeasurementWord() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'shortMeasurementWord', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QAfterSortBy>
-      thenByShortMeasurementWordDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'shortMeasurementWord', Sort.desc);
+      return query.addSortBy(r'notes', Sort.desc);
     });
   }
 
@@ -1533,17 +1341,47 @@ extension ProvisionQuerySortThenBy
       return query.addSortBy(r'timestamp', Sort.desc);
     });
   }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByUnit() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unit', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByUnitDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unit', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByUnitMeasurementWord() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unitMeasurementWord', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy>
+      thenByUnitMeasurementWordDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unitMeasurementWord', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByUnitPrice() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unitPrice', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QAfterSortBy> thenByUnitPriceDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'unitPrice', Sort.desc);
+    });
+  }
 }
 
 extension ProvisionQueryWhereDistinct
     on QueryBuilder<Provision, Provision, QDistinct> {
-  QueryBuilder<Provision, Provision, QDistinct> distinctByDescription(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'description', caseSensitive: caseSensitive);
-    });
-  }
-
   QueryBuilder<Provision, Provision, QDistinct> distinctByIcon(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1551,31 +1389,15 @@ extension ProvisionQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Provision, Provision, QDistinct>
-      distinctByMaximumMeasurementPerDay() {
+  QueryBuilder<Provision, Provision, QDistinct> distinctByMaxUnitPerDay() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'maximumMeasurementPerDay');
+      return query.addDistinctBy(r'maxUnitPerDay');
     });
   }
 
-  QueryBuilder<Provision, Provision, QDistinct> distinctByMeasurement() {
+  QueryBuilder<Provision, Provision, QDistinct> distinctByMinUnitPerDay() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'measurement');
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QDistinct> distinctByMeasurementWord(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'measurementWord',
-          caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QDistinct>
-      distinctByMinimalMeasurementPerDay() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'minimalMeasurementPerDay');
+      return query.addDistinctBy(r'minUnitPerDay');
     });
   }
 
@@ -1586,23 +1408,36 @@ extension ProvisionQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Provision, Provision, QDistinct> distinctByPrice() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'price');
-    });
-  }
-
-  QueryBuilder<Provision, Provision, QDistinct> distinctByShortMeasurementWord(
+  QueryBuilder<Provision, Provision, QDistinct> distinctByNotes(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'shortMeasurementWord',
-          caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'notes', caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<Provision, Provision, QDistinct> distinctByTimestamp() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'timestamp');
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QDistinct> distinctByUnit() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'unit');
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QDistinct> distinctByUnitMeasurementWord(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'unitMeasurementWord',
+          caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<Provision, Provision, QDistinct> distinctByUnitPrice() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'unitPrice');
     });
   }
 }
@@ -1615,41 +1450,21 @@ extension ProvisionQueryProperty
     });
   }
 
-  QueryBuilder<Provision, String, QQueryOperations> descriptionProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'description');
-    });
-  }
-
   QueryBuilder<Provision, String, QQueryOperations> iconProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'icon');
     });
   }
 
-  QueryBuilder<Provision, int, QQueryOperations>
-      maximumMeasurementPerDayProperty() {
+  QueryBuilder<Provision, double, QQueryOperations> maxUnitPerDayProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'maximumMeasurementPerDay');
+      return query.addPropertyName(r'maxUnitPerDay');
     });
   }
 
-  QueryBuilder<Provision, int, QQueryOperations> measurementProperty() {
+  QueryBuilder<Provision, double, QQueryOperations> minUnitPerDayProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'measurement');
-    });
-  }
-
-  QueryBuilder<Provision, String, QQueryOperations> measurementWordProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'measurementWord');
-    });
-  }
-
-  QueryBuilder<Provision, int, QQueryOperations>
-      minimalMeasurementPerDayProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'minimalMeasurementPerDay');
+      return query.addPropertyName(r'minUnitPerDay');
     });
   }
 
@@ -1659,22 +1474,34 @@ extension ProvisionQueryProperty
     });
   }
 
-  QueryBuilder<Provision, double, QQueryOperations> priceProperty() {
+  QueryBuilder<Provision, String, QQueryOperations> notesProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'price');
-    });
-  }
-
-  QueryBuilder<Provision, String, QQueryOperations>
-      shortMeasurementWordProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'shortMeasurementWord');
+      return query.addPropertyName(r'notes');
     });
   }
 
   QueryBuilder<Provision, DateTime, QQueryOperations> timestampProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'timestamp');
+    });
+  }
+
+  QueryBuilder<Provision, double, QQueryOperations> unitProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'unit');
+    });
+  }
+
+  QueryBuilder<Provision, String, QQueryOperations>
+      unitMeasurementWordProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'unitMeasurementWord');
+    });
+  }
+
+  QueryBuilder<Provision, double, QQueryOperations> unitPriceProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'unitPrice');
     });
   }
 }

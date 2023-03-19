@@ -32,65 +32,31 @@ class _IconSelectorState extends State<IconSelector> {
           children: [
             const Spacer(),
             Container(
-                height: 66.0,
-                color: Colors.blue,
-                child: Row(
-                  children: [
-                    Material(
-                      color: Colors.transparent,
-                      child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            emojiShowing = !emojiShowing;
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.emoji_emotions,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: TextField(
-                            controller: _controller,
-                            keyboardType: TextInputType.none,
-                            style: const TextStyle(
-                                fontSize: 20.0, color: Colors.black87),
-                            decoration: InputDecoration(
-                              hintText: 'Type a message',
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding: const EdgeInsets.only(
-                                  left: 16.0,
-                                  bottom: 8.0,
-                                  top: 8.0,
-                                  right: 16.0),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                              ),
-                            )),
-                      ),
-                    ),
-                    Material(
-                      color: Colors.transparent,
-                      child: IconButton(
-                          onPressed: () {
-                            // send message
-                          },
-                          icon: const Icon(
-                            Icons.send,
-                            color: Colors.white,
-                          )),
-                    )
-                  ],
-                )),
+              margin: EdgeInsets.all(10.0),
+              height: 50.0,
+              width: 80.0,
+              color: Colors.grey.withOpacity(0.2),
+              child: TextField(
+                controller: _controller,
+                keyboardType: TextInputType.none,
+                style: const TextStyle(fontSize: 20.0, color: Colors.black87),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(
+                      left: 16.0, bottom: 8.0, top: 8.0, right: 16.0),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.withOpacity(0)),
+                  ),
+                ),
+              ),
+            ),
             Offstage(
               offstage: false,
               child: SizedBox(
                   height: 250,
                   child: EmojiPicker(
+                    onEmojiSelected: (category, emoji) {
+                      _controller.text = emoji.emoji;
+                    },
                     textEditingController: _controller,
                     config: Config(
                       columns: 7,
@@ -103,7 +69,7 @@ class _IconSelectorState extends State<IconSelector> {
                       verticalSpacing: 0,
                       horizontalSpacing: 0,
                       gridPadding: EdgeInsets.zero,
-                      initCategory: Category.RECENT,
+                      initCategory: Category.FOODS,
                       bgColor: const Color(0xFFF2F2F2),
                       indicatorColor: Colors.blue,
                       iconColor: Colors.grey,

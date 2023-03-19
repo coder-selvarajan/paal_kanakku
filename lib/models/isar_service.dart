@@ -33,10 +33,11 @@ class IsarService {
   //   });
   // }
   //
-  // Future<void> saveGame(Game newGame) async {
-  //   final isar = await db;
-  //   isar.writeTxnSync<int>(() => isar.games.putSync(newGame));
-  // }
+  Future<void> saveProvision(Provision newProvision) async {
+    final isar = await db;
+    isar.writeTxnSync<int>(() => isar.provisions.putSync(newProvision));
+  }
+
   //
   // Future<void> deleteGame(Id gameId) async {
   //   final isar = await db;
@@ -66,10 +67,10 @@ class IsarService {
   //   });
   // }
   //
-  // Stream<List<Player>> streamPlayers() async* {
-  //   final isar = await db;
-  //   yield* isar.players.where().watch(fireImmediately: true);
-  // }
+  Stream<List<Provision>> streamProvisions() async* {
+    final isar = await db;
+    yield* isar.provisions.where().watch(fireImmediately: true);
+  }
   //
   // Future<Setting?> getSettings() async {
   //   final isar = await db;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paal_kanakku/screens/add_provision_screen.dart';
 import 'package:paal_kanakku/screens/add_service_screen.dart';
 import 'package:paal_kanakku/screens/goods_entry.dart';
+import 'package:paal_kanakku/screens/list_provisions_screen.dart';
 import 'package:paal_kanakku/screens/service_entry_screen.dart';
 
 import 'provision_entry_screen.dart';
@@ -175,14 +176,30 @@ class HomeScreen extends StatelessWidget {
                         height: 30,
                       ),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "Provisions:",
                             style: TextStyle(
                               fontSize: textTheme.titleMedium!.fontSize,
                               fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProvisionList(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "⚙️ Setup",
+                              style: TextStyle(
+                                  fontSize: textTheme.titleMedium!.fontSize),
                             ),
                           ),
                           // Divider(
@@ -213,31 +230,31 @@ class HomeScreen extends StatelessWidget {
                         itemType: ItemType.provision,
                       ),
                       SizedBox(
-                        height: 5.0,
+                        height: 25.0,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddProvision(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "+ Setup New Provision",
-                          style: TextStyle(
-                            color: Colors.blue.withOpacity(0.7),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3.0,
-                      ),
+                      // TextButton(
+                      //   onPressed: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => AddProvision(),
+                      //       ),
+                      //     );
+                      //   },
+                      //   child: Text(
+                      //     "+ Setup New Provision",
+                      //     style: TextStyle(
+                      //       color: Colors.blue.withOpacity(0.7),
+                      //       fontWeight: FontWeight.bold,
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 3.0,
+                      // ),
                       // Services
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
@@ -245,6 +262,22 @@ class HomeScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: textTheme.titleMedium!.fontSize,
                               fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProvisionList(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "⚙️ Setup",
+                              style: TextStyle(
+                                  fontSize: textTheme.titleMedium!.fontSize),
                             ),
                           ),
                           // Divider(
@@ -274,26 +307,26 @@ class HomeScreen extends StatelessWidget {
                         itemType: ItemType.service,
                       ),
 
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddService(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "+ Setup New Service",
-                          style: TextStyle(
-                            color: Colors.blue.withOpacity(0.7),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: 5.0,
+                      // ),
+                      // TextButton(
+                      //   onPressed: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => AddService(),
+                      //       ),
+                      //     );
+                      //   },
+                      //   child: Text(
+                      //     "+ Setup New Service",
+                      //     style: TextStyle(
+                      //       color: Colors.blue.withOpacity(0.7),
+                      //       fontWeight: FontWeight.bold,
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 20.0,
                       ),
