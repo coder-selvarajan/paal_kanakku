@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:paal_kanakku/models/provision.dart';
+import 'package:paal_kanakku/screens/add_service_screen.dart';
+import 'package:paal_kanakku/screens/provision_entry_screen.dart';
+import 'package:paal_kanakku/screens/service_entry_screen.dart';
 
 import '../models/isar_service.dart';
 import 'add_provision_screen.dart';
+import 'edit_provision_screen.dart';
 import 'home_screen.dart';
 
 class ProvisionList extends StatelessWidget {
@@ -54,30 +58,6 @@ class ProvisionList extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: [
-            // Row(
-            //   children: [
-            //     Text("Provisions:"),
-            //     Spacer(),
-            //     TextButton(
-            //       onPressed: () {
-            //         Navigator.push(
-            //           context,
-            //           MaterialPageRoute(
-            //             builder: (context) => AddProvision(),
-            //           ),
-            //         );
-            //       },
-            //       child: Text("New Provision"),
-            //     ),
-            //   ],
-            // ),
-            // HomeItemTile(
-            //   textTheme: textTheme,
-            //   icon: "💧",
-            //   title: "Watercane",
-            //   subtitle: "12 cane - Rs 360",
-            //   itemType: ItemType.provision,
-            // ),
             StreamBuilder<List<Provision>>(
                 stream: IsarService().streamProvisions(),
                 builder: (context, snapshot) {
@@ -91,23 +71,35 @@ class ProvisionList extends StatelessWidget {
                           SizedBox(
                             height: 30.0,
                           ),
-                          OutlinedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AddProvision()),
-                              );
-                            },
-                            child: Text(
-                              "New Provision",
-                              // style: TextStyle(color: Colors.white),
-                            ),
-                            style: OutlinedButton.styleFrom(
-                              // backgroundColor: Colors.redAccent,
-                              side: BorderSide(width: 1.5, color: Colors.red),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
+                          Container(
+                            width: 150,
+                            child: OutlinedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AddProvision()),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    " New Provision",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.lightBlueAccent,
+                                side: BorderSide(
+                                    width: 1.5, color: Colors.lightBlueAccent),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0)),
+                              ),
                             ),
                           ),
                         ],
@@ -172,24 +164,32 @@ class ProvisionList extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              HomeItemTile(
+                              ProvisionItemTile(
+                                provision: provision,
                                 textTheme: textTheme,
                                 icon: provision.icon,
                                 title: provision.name,
                                 subtitle:
-                                    "${provision.unit * 20} ${provision.unitMeasurementWord} - ₹ ${provision.unitPrice * 20}", // "12 cane - Rs 360",
+                                    "${provision.unit} ${provision.unitMeasurementWord} = ₹ ${provision.unitPrice}",
+                                subtitle2:
+                                    "Min Unit: ${provision.minUnitPerDay}, Max Unit: ${provision.maxUnitPerDay}",
+                                notes: provision.notes,
                                 itemType: ItemType.provision,
                               ),
                             ],
                           );
                         }
 
-                        return HomeItemTile(
+                        return ProvisionItemTile(
+                          provision: provision,
                           textTheme: textTheme,
                           icon: provision.icon,
                           title: provision.name,
                           subtitle:
-                              "${provision.unit * 20} ${provision.unitMeasurementWord} - ₹ ${provision.unitPrice * 20}", // "12 cane - Rs 360",
+                              "${provision.unit} ${provision.unitMeasurementWord} = ₹ ${provision.unitPrice}",
+                          subtitle2:
+                              "Min Unit: ${provision.minUnitPerDay}, Max Unit: ${provision.maxUnitPerDay}",
+                          notes: provision.notes,
                           itemType: ItemType.provision,
                         );
                       },
@@ -203,6 +203,121 @@ class ProvisionList extends StatelessWidget {
                 })
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ProvisionItemTile extends StatelessWidget {
+  ProvisionItemTile({
+    Key? key,
+    required this.provision,
+    required this.textTheme,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.subtitle2,
+    required this.notes,
+    required this.itemType,
+  }) : super(key: key);
+
+  Provision provision;
+  final TextTheme textTheme;
+  final String icon;
+  final String title;
+  final String subtitle;
+  final String subtitle2;
+  final String notes;
+  final ItemType itemType;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: ListTile(
+        leading: Text(
+          icon,
+          style: TextStyle(
+            fontSize: 40.0,
+            color: Colors.lightBlue,
+          ),
+        ),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  // fontSize: textTheme.titleLarge!.fontSize,
+                ),
+              ),
+              SizedBox(
+                height: 5.0,
+              ),
+              Text(
+                subtitle,
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: textTheme.bodyMedium!.fontSize),
+              ),
+              SizedBox(
+                height: 5.0,
+              ),
+              Text(
+                subtitle2,
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: textTheme.bodySmall!.fontSize),
+              ),
+              notes.isNotEmpty
+                  ? Column(
+                      children: [
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Text(
+                          notes,
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: textTheme.bodySmall!.fontSize),
+                        ),
+                      ],
+                    )
+                  : SizedBox(),
+            ],
+          ),
+        ),
+        trailing: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10.0),
+          child: const Icon(
+            Icons.chevron_right,
+            size: 25.0,
+            color: Colors.black54,
+          ),
+        ),
+        onTap: () {
+          if (itemType == ItemType.provision) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditProvision(provision: provision),
+              ),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddService(),
+              ),
+            );
+          }
+        },
       ),
     );
   }

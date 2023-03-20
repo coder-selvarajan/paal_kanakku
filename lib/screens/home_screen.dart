@@ -127,13 +127,47 @@ class HomeScreen extends StatelessWidget {
                                     SizedBox(
                                       height: 10.0,
                                     ),
-                                    Text(
-                                      "Settled: ₹400  |  Pending : 4200",
-                                      style: TextStyle(
-                                        fontSize: textTheme.caption!.fontSize,
-                                        // fontWeight: FontWeight.bold,
-                                        // color: Colors.lightBlue,
-                                      ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Settled: ",
+                                          style: TextStyle(
+                                            fontSize:
+                                                textTheme.caption!.fontSize,
+                                            // fontWeight: FontWeight.bold,
+                                            // color: Colors.lightBlue,
+                                          ),
+                                        ),
+                                        Text(
+                                          "₹400",
+                                          style: TextStyle(
+                                            fontSize:
+                                                textTheme.caption!.fontSize,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green,
+                                          ),
+                                        ),
+                                        Text(
+                                          "  |  Pending : ",
+                                          style: TextStyle(
+                                            fontSize:
+                                                textTheme.caption!.fontSize,
+                                            // fontWeight: FontWeight.bold,
+                                            // color: Colors.lightBlue,
+                                          ),
+                                        ),
+                                        Text(
+                                          "₹4200",
+                                          style: TextStyle(
+                                            fontSize:
+                                                textTheme.caption!.fontSize,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -196,10 +230,22 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               );
                             },
-                            child: Text(
-                              "⚙️ Setup",
-                              style: TextStyle(
-                                  fontSize: textTheme.titleMedium!.fontSize),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.settings,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Setup",
+                                  style: TextStyle(
+                                      fontSize:
+                                          textTheme.titleMedium!.fontSize),
+                                ),
+                              ],
                             ),
                           ),
                           // Divider(
@@ -213,9 +259,11 @@ class HomeScreen extends StatelessWidget {
                       ),
                       HomeItemTile(
                         textTheme: textTheme,
-                        icon: "🍼",
+                        icon: "🥛",
                         title: "Milk",
                         subtitle: "15 Litre - Rs 600",
+                        settledAmount: "200",
+                        pendingAmount: "400",
                         itemType: ItemType.provision,
                       ),
                       SizedBox(
@@ -227,6 +275,8 @@ class HomeScreen extends StatelessWidget {
                         icon: "💧",
                         title: "Watercane",
                         subtitle: "12 cane - Rs 360",
+                        settledAmount: "130",
+                        pendingAmount: "130",
                         itemType: ItemType.provision,
                       ),
                       SizedBox(
@@ -274,10 +324,22 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               );
                             },
-                            child: Text(
-                              "⚙️ Setup",
-                              style: TextStyle(
-                                  fontSize: textTheme.titleMedium!.fontSize),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.settings,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Setup",
+                                  style: TextStyle(
+                                      fontSize:
+                                          textTheme.titleMedium!.fontSize),
+                                ),
+                              ],
                             ),
                           ),
                           // Divider(
@@ -294,6 +356,8 @@ class HomeScreen extends StatelessWidget {
                         icon: "👩🏻‍🍼",
                         title: "Baby Sitter",
                         subtitle: "Monthly - ₹8000",
+                        settledAmount: "1000",
+                        pendingAmount: "8000",
                         itemType: ItemType.service,
                       ),
                       SizedBox(
@@ -304,6 +368,8 @@ class HomeScreen extends StatelessWidget {
                         icon: "🙋🏻‍♀️",
                         title: "Maid",
                         subtitle: "Monthly - ₹4000",
+                        settledAmount: "0",
+                        pendingAmount: "4000",
                         itemType: ItemType.service,
                       ),
 
@@ -424,6 +490,8 @@ class HomeItemTile extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.subtitle,
+    required this.settledAmount,
+    required this.pendingAmount,
     required this.itemType,
   }) : super(key: key);
 
@@ -431,20 +499,22 @@ class HomeItemTile extends StatelessWidget {
   final String icon;
   final String title;
   final String subtitle;
+  final String settledAmount;
+  final String pendingAmount;
   final ItemType itemType;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.15),
+        color: Colors.grey.withOpacity(0.1),
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: ListTile(
         leading: Text(
           icon,
           style: TextStyle(
-            fontSize: 35.0,
+            fontSize: 40.0,
             color: Colors.lightBlue,
           ),
         ),
@@ -456,8 +526,9 @@ class HomeItemTile extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                    // fontSize: textTheme.titleLarge!.fontSize,
-                    ),
+                  fontWeight: FontWeight.bold,
+                  // fontSize: textTheme.titleLarge!.fontSize,
+                ),
               ),
               SizedBox(
                 height: 5.0,
@@ -465,8 +536,48 @@ class HomeItemTile extends StatelessWidget {
               Text(
                 subtitle,
                 style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.black87,
                     fontSize: textTheme.bodyMedium!.fontSize),
+              ),
+              SizedBox(
+                height: 5.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Settled: ",
+                    style: TextStyle(
+                      fontSize: textTheme.caption!.fontSize,
+                      // fontWeight: FontWeight.bold,
+                      // color: Colors.lightBlue,
+                    ),
+                  ),
+                  Text(
+                    "₹$settledAmount",
+                    style: TextStyle(
+                      fontSize: textTheme.caption!.fontSize,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    "  |  Pending : ",
+                    style: TextStyle(
+                      fontSize: textTheme.caption!.fontSize,
+                      // fontWeight: FontWeight.bold,
+                      // color: Colors.lightBlue,
+                    ),
+                  ),
+                  Text(
+                    "₹$pendingAmount",
+                    style: TextStyle(
+                      fontSize: textTheme.caption!.fontSize,
+                      // fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 5.0,

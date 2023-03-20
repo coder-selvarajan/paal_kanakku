@@ -20,22 +20,16 @@ class IsarService {
     return Future.value(Isar.getInstance());
   }
 
-  // Future<void> savePlayer(Player newPlayer) async {
-  //   final isar = await db;
-  //   isar.writeTxnSync<int>(() => isar.players.putSync(newPlayer));
-  // }
-  //
-  // Future<void> deletePlayer(Player player) async {
-  //   final isar = await db;
-  //   await isar.writeTxn(() async {
-  //     final success = await isar.players.delete(player.id);
-  //     // print('Recipe deleted: $success');
-  //   });
-  // }
-  //
-  Future<void> saveProvision(Provision newProvision) async {
+  Future<void> deleteProvision(Provision provision) async {
     final isar = await db;
-    isar.writeTxnSync<int>(() => isar.provisions.putSync(newProvision));
+    await isar.writeTxn(() async {
+      final success = await isar.provisions.delete(provision.id);
+    });
+  }
+
+  Future<void> saveProvision(Provision provision) async {
+    final isar = await db;
+    isar.writeTxnSync<int>(() => isar.provisions.putSync(provision));
   }
 
   //
