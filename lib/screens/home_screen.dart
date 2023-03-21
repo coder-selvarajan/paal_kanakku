@@ -509,6 +509,10 @@ class HomeItemTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.1),
         borderRadius: BorderRadius.circular(15.0),
+        border: Border.all(
+          color: Colors.grey.withOpacity(0.1),
+          width: 1,
+        ),
       ),
       child: ListTile(
         leading: Text(

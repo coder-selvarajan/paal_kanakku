@@ -236,6 +236,10 @@ class ProvisionItemTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.1),
         borderRadius: BorderRadius.circular(15.0),
+        border: Border.all(
+          color: Colors.grey.withOpacity(0.1),
+          width: 1,
+        ),
       ),
       child: ListTile(
         leading: Text(
@@ -293,13 +297,16 @@ class ProvisionItemTile extends StatelessWidget {
             ],
           ),
         ),
-        trailing: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10.0),
-          child: const Icon(
-            Icons.chevron_right,
-            size: 25.0,
-            color: Colors.black54,
-          ),
+        trailing: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.chevron_right,
+              size: 25.0,
+              color: Colors.black54,
+            ),
+          ],
         ),
         onTap: () {
           if (itemType == ItemType.provision) {

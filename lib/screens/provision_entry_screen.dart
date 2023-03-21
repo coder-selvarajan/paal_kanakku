@@ -481,72 +481,33 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                       ),
                     ),
                     const SizedBox(height: 15.0),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        // color: Colors.lightBlueAccent.withOpacity(0.15),
-                        color: Colors.grey.withOpacity(0.15),
-                        border: Border.all(
-                            color: Colors.grey.withOpacity(0.2), width: 1),
+                    Center(
+                      child: Text(
+                        "Selected Date: ${DateFormat.MMMMEEEEd().format(_selectedDay)}",
+                        style: TextStyle(
+                          fontSize: textTheme.caption!.fontSize,
+                          color: Colors.grey,
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    DateFormat.MMMMd().format(_selectedDay),
-                                    style: TextStyle(
-                                      fontSize: textTheme.titleSmall!.fontSize,
-                                      fontWeight: FontWeight.bold,
-                                      // color: Colors.lightBlueAccent,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    DateFormat.EEEE().format(_selectedDay),
-                                    style: TextStyle(
-                                      color: Colors.black45,
-                                    ),
-                                    // style: TextStyle(
-                                    //   fontSize: textTheme.titleSmall!.fontSize,
-                                    //   fontWeight: FontWeight.bold,
-                                    //   // color: Colors.lightBlueAccent,
-                                    // ),
-                                  ),
-                                ],
-                              ),
-                              // SizedBox(
-                              //   height: 5.0,
-                              // ),
-                              // Text(
-                              //   "1L = Rs 60",
-                              //   style: TextStyle(
-                              //       color: Colors.grey,
-                              //       fontSize: textTheme.caption!.fontSize),
-                              // ),
-                            ],
-                          ),
-                          Spacer(),
-                          OutlinedButton(
-                            onPressed: () async {},
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.blueAccent,
-                              side: const BorderSide(
-                                  width: 1.5, color: Colors.blue),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                            ),
-                            child: Row(
+                    ),
+                    const SizedBox(height: 10.0),
+                    OutlinedButton(
+                      onPressed: () async {},
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Colors.lightBlueAccent,
+                        side: const BorderSide(
+                            width: 1.5, color: Colors.lightBlueAccent),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 // Icon(
                                 //   Icons.add,
@@ -556,17 +517,117 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                                 //   width: 5.0,
                                 // ),
                                 Text(
-                                  "Add ${widget.provision}",
+                                  "Add  ${widget.provision}",
                                   style: TextStyle(
                                     color: Colors.white,
+                                    fontSize: textTheme.titleLarge!.fontSize,
                                   ),
                                 ),
+                                // SizedBox(
+                                //   height: 5,
+                                // ),
+                                // Text(
+                                //   "for March 10",
+                                //   style: TextStyle(
+                                //     color: Colors.white70,
+                                //     fontSize: textTheme.bodyLarge!.fontSize,
+                                //   ),
+                                // ),
                               ],
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
+                    // const SizedBox(height: 15.0),
+                    // Container(
+                    //   padding: EdgeInsets.symmetric(
+                    //       horizontal: 20.0, vertical: 10.0),
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(10.0),
+                    //     // color: Colors.lightBlueAccent.withOpacity(0.15),
+                    //     color: Colors.grey.withOpacity(0.15),
+                    //     border: Border.all(
+                    //         color: Colors.grey.withOpacity(0.2), width: 1),
+                    //   ),
+                    //   child: Row(
+                    //     children: [
+                    //       Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.center,
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Column(
+                    //             crossAxisAlignment: CrossAxisAlignment.start,
+                    //             mainAxisAlignment: MainAxisAlignment.center,
+                    //             children: [
+                    //               Text(
+                    //                 "Selected Date:",
+                    //                 // DateFormat.EEEE().format(_selectedDay),
+                    //                 style: TextStyle(
+                    //                   color: Colors.black45,
+                    //                   fontSize: textTheme.titleSmall!.fontSize,
+                    //                 ),
+                    //                 // style: TextStyle(
+                    //                 //   fontSize: textTheme.titleSmall!.fontSize,
+                    //                 //   fontWeight: FontWeight.bold,
+                    //                 //   // color: Colors.lightBlueAccent,
+                    //                 // ),
+                    //               ),
+                    //               SizedBox(
+                    //                 height: 5.0,
+                    //               ),
+                    //               Text(
+                    //                 DateFormat.MMMMEEEEd().format(_selectedDay),
+                    //                 style: TextStyle(
+                    //                   fontSize: textTheme.titleSmall!.fontSize,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   // color: Colors.lightBlueAccent,
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //           // SizedBox(
+                    //           //   height: 5.0,
+                    //           // ),
+                    //           // Text(
+                    //           //   "1L = Rs 60",
+                    //           //   style: TextStyle(
+                    //           //       color: Colors.grey,
+                    //           //       fontSize: textTheme.caption!.fontSize),
+                    //           // ),
+                    //         ],
+                    //       ),
+                    //       Spacer(),
+                    //       OutlinedButton(
+                    //         onPressed: () async {},
+                    //         style: OutlinedButton.styleFrom(
+                    //           backgroundColor: Colors.lightBlueAccent,
+                    //           side: const BorderSide(
+                    //               width: 1.5, color: Colors.lightBlueAccent),
+                    //           shape: RoundedRectangleBorder(
+                    //               borderRadius: BorderRadius.circular(10.0)),
+                    //         ),
+                    //         child: Row(
+                    //           children: [
+                    //             // Icon(
+                    //             //   Icons.add,
+                    //             //   color: Colors.white,
+                    //             // ),
+                    //             // SizedBox(
+                    //             //   width: 5.0,
+                    //             // ),
+                    //             Text(
+                    //               "  Add ${widget.provision}  ",
+                    //               style: TextStyle(
+                    //                 color: Colors.white,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     const SizedBox(height: 15.0),
                     ValueListenableBuilder<List<Event>>(
                       valueListenable: _selectedEvents,
@@ -680,29 +741,29 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                       },
                     ),
                     const SizedBox(height: 10.0),
-                    Divider(
-                      thickness: 1.0,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(height: 10.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          " Total (1 Litre)",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          // "15 Litres",
-                          "",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "₹ 80 ",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+                    // Divider(
+                    //   thickness: 1.0,
+                    //   color: Colors.grey,
+                    // ),
+                    // const SizedBox(height: 10.0),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text(
+                    //       " Total (1 Litre)",
+                    //       style: TextStyle(fontWeight: FontWeight.bold),
+                    //     ),
+                    //     Text(
+                    //       // "15 Litres",
+                    //       "",
+                    //       style: TextStyle(fontWeight: FontWeight.bold),
+                    //     ),
+                    //     Text(
+                    //       "₹ 80 ",
+                    //       style: TextStyle(fontWeight: FontWeight.bold),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),

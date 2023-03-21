@@ -96,7 +96,7 @@ class _EditProvisionState extends State<EditProvision> {
                       },
                       icon: Icon(
                         Icons.delete,
-                        color: Colors.red[300],
+                        color: Colors.white,
                       ),
                     ),
                   ],

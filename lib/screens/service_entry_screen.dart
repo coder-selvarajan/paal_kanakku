@@ -542,23 +542,23 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                     // ),
                     // const SizedBox(height: 10.0),
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        // color: Colors.lightBlueAccent.withOpacity(0.10),
-                        color: Colors.grey.withOpacity(0.10),
-                        border:
-                            Border.all(width: 1, color: Colors.grey.shade300),
-                      ),
+                      // padding:
+                      //     EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
+                      // decoration: BoxDecoration(
+                      //   borderRadius: BorderRadius.circular(10.0),
+                      //   // color: Colors.lightBlueAccent.withOpacity(0.10),
+                      //   color: Colors.grey.withOpacity(0.10),
+                      //   border:
+                      //       Border.all(width: 1, color: Colors.grey.shade300),
+                      // ),
                       child: Column(
                         children: [
                           Center(
                             child: Text(
                               DateFormat.MMMMEEEEd().format(_selectedDay),
                               style: TextStyle(
-                                fontSize: textTheme.titleSmall!.fontSize,
-                                fontWeight: FontWeight.bold,
+                                fontSize: textTheme.caption!.fontSize,
+                                // fontWeight: FontWeight.bold,
                                 // color: Colors.lightBlueAccent,
                               ),
                             ),
@@ -580,7 +580,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                             },
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8)),
-                            selectedBorderColor: Colors.green[700],
+                            selectedBorderColor: Colors.grey[500],
                             selectedColor: Colors.black87,
                             // fillColor: Colors.blueAccent[200],
                             // color: Colors.blueAccent[400],
@@ -591,7 +591,7 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                     : Colors.lightGreen.shade300,
                             color: Colors.black87,
                             constraints: const BoxConstraints(
-                              minHeight: 35.0,
+                              minHeight: 40.0,
                               minWidth: 100.0,
                             ),
                             isSelected: _selectedService,
