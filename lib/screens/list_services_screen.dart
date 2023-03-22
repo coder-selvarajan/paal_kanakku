@@ -9,8 +9,8 @@ import 'add_provision_screen.dart';
 import 'edit_provision_screen.dart';
 import 'home_screen.dart';
 
-class ProvisionList extends StatelessWidget {
-  const ProvisionList({Key? key}) : super(key: key);
+class ServiceList extends StatelessWidget {
+  const ServiceList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class ProvisionList extends StatelessWidget {
                     // const SizedBox(
                     //   width: 10.0,
                     // ),
-                    Text("Provision List"),
+                    Text("Service List"),
                   ],
                 ),
                 elevation: 0,
@@ -67,7 +67,7 @@ class ProvisionList extends StatelessWidget {
                       return Center(
                           child: Column(
                         children: [
-                          Text('No Provisions added yet'),
+                          Text('No Services added yet'),
                           SizedBox(
                             height: 30.0,
                           ),
@@ -78,7 +78,7 @@ class ProvisionList extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => AddProvision()),
+                                      builder: (context) => AddService()),
                                 );
                               },
                               child: Row(
@@ -88,7 +88,7 @@ class ProvisionList extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                   Text(
-                                    " New Provision",
+                                    " New Service",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ],
@@ -120,7 +120,7 @@ class ProvisionList extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    "Provisions:",
+                                    "Services:",
                                     style: TextStyle(
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold,
@@ -133,8 +133,7 @@ class ProvisionList extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                AddProvision()),
+                                            builder: (context) => AddService()),
                                       );
                                     },
                                     child: Row(
@@ -144,7 +143,7 @@ class ProvisionList extends StatelessWidget {
                                           color: Colors.white,
                                         ),
                                         Text(
-                                          " New Provision",
+                                          " New Service",
                                           style: TextStyle(color: Colors.white),
                                         ),
                                       ],

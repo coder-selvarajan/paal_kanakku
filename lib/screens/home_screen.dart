@@ -3,6 +3,7 @@ import 'package:paal_kanakku/screens/add_provision_screen.dart';
 import 'package:paal_kanakku/screens/add_service_screen.dart';
 import 'package:paal_kanakku/screens/goods_entry.dart';
 import 'package:paal_kanakku/screens/list_provisions_screen.dart';
+import 'package:paal_kanakku/screens/list_services_screen.dart';
 import 'package:paal_kanakku/screens/service_entry_screen.dart';
 
 import 'provision_entry_screen.dart';
@@ -320,7 +321,7 @@ class HomeScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ProvisionList(),
+                                  builder: (context) => ServiceList(),
                                 ),
                               );
                             },
@@ -566,7 +567,7 @@ class HomeItemTile extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "  |  Pending : ",
+                    "  |  Balance : ",
                     style: TextStyle(
                       fontSize: textTheme.caption!.fontSize,
                       // fontWeight: FontWeight.bold,
@@ -595,14 +596,29 @@ class HomeItemTile extends StatelessWidget {
             ],
           ),
         ),
-        trailing: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10.0),
-          child: const Icon(
-            Icons.chevron_right,
-            size: 25.0,
-            color: Colors.black54,
+        trailing: Container(
+          // color: Colors.red,
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.chevron_right,
+                size: 25.0,
+                color: Colors.black54,
+              ),
+            ],
           ),
         ),
+
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10.0),
+        //   child: const Icon(
+        //     Icons.chevron_right,
+        //     size: 25.0,
+        //     color: Colors.black54,
+        //   ),
+        // ),
         onTap: () {
           if (itemType == ItemType.provision) {
             Navigator.push(
