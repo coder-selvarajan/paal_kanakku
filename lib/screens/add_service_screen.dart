@@ -24,7 +24,7 @@ class _AddServiceState extends State<AddService> {
   String maxUnitPerDay = "10";
   String notes = "";
   String weekoff = "Sunday";
-  String extraHoliday = "2";
+  String extraHoliday = "0";
 
   bool isHalfDayChecked = true;
   bool isFullDayChecked = true;
@@ -362,7 +362,7 @@ class _AddServiceState extends State<AddService> {
                                 height: 25,
                               ),
                               Text(
-                                "Allowed Holidays(extra) Per Month:",
+                                "Paid Holidays/Month:",
                                 style: TextStyle(
                                   fontSize: textTheme.titleMedium!.fontSize,
                                   fontWeight: FontWeight.bold,
@@ -394,6 +394,13 @@ class _AddServiceState extends State<AddService> {
                                 onChanged: (value) {
                                   extraHoliday = value;
                                 },
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "If week-off is selected, then this will the extra holidays for the person. If no week-of is selected then, this will be the allowed holidays/month for the person",
+                                style: TextStyle(color: Colors.grey),
                               ),
                               const SizedBox(
                                 height: 25,
@@ -449,6 +456,45 @@ class _AddServiceState extends State<AddService> {
                                   ],
                                 ),
                               ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "Notes ",
+                                style: TextStyle(
+                                  fontSize: textTheme.titleMedium!.fontSize,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                maxLines: 3,
+                                keyboardType: TextInputType.multiline,
+                                decoration: InputDecoration(
+                                  filled: true, //<-- SEE HERE
+                                  fillColor: Colors.grey.withOpacity(0.2),
+                                  hintText: "",
+                                  // prefixIcon: const Padding(
+                                  //   padding: EdgeInsets.all(8.0),
+                                  //   child: Icon(Icons.edit_rounded),
+                                  // ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide(
+                                        width: 0.0, color: Colors.blue),
+                                  ),
+                                ),
+                                onChanged: (value) {
+                                  notes = value;
+                                },
+                              ),
+                              const SizedBox(height: 20.0),
                             ],
                           ),
                         ],
