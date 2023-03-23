@@ -1,8 +1,10 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' as foundation;
-import 'package:paal_kanakku/models/provision.dart';
+import 'package:isar/isar.dart';
+import 'package:paal_kanakku/models/service.dart';
 import 'package:paal_kanakku/screens/EmojiPicker.dart';
+import 'package:weekday_selector/weekday_selector.dart';
 
 import '../models/isar_service.dart';
 
@@ -15,19 +17,33 @@ class AddService extends StatefulWidget {
 
 class _AddServiceState extends State<AddService> {
   bool showEmojiPicker = false;
-  String selectedEmoji = "💁🏻‍♀️"; //📦
-  String provisionName = "";
-  String unit = "";
-  String unitPrice = "";
-  String unitMeasurementWord = "";
-  String minUnitPerDay = "1";
-  String maxUnitPerDay = "10";
+  String selectedEmoji = "💁🏻‍♀️";
+  String serviceName = "";
+  String personName = "";
+  String serviceCharge = "";
+  String serviceChargePerPeriod = "";
+  String paidHolidaysPerMonth = "0";
+  // List<ServiceEntryOption> serviceEntryOptions = ServiceEntry.values.map((e) {
+  //   return ServiceEntryOption();
+  // }).toList();
+
   String notes = "";
-  String weekoff = "Sunday";
-  String extraHoliday = "0";
+  List<String> weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ];
 
   bool isHalfDayChecked = true;
   bool isFullDayChecked = true;
+
+  // final values = List.filled(7, false, growable: false)..[7 % 7] = true;
+  final weekoffValues = [true, false, false, false, false, false, false];
 
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -132,8 +148,9 @@ class _AddServiceState extends State<AddService> {
                                 BorderSide(width: 0.0, color: Colors.blue),
                           ),
                         ),
+                        initialValue: serviceName,
                         onChanged: (value) {
-                          provisionName = value;
+                          serviceName = value;
                         },
                       ),
                       const SizedBox(
@@ -168,8 +185,9 @@ class _AddServiceState extends State<AddService> {
                                 BorderSide(width: 0.0, color: Colors.blue),
                           ),
                         ),
+                        initialValue: personName,
                         onChanged: (value) {
-                          provisionName = value;
+                          personName = value;
                         },
                       ),
                       const SizedBox(
@@ -251,8 +269,9 @@ class _AddServiceState extends State<AddService> {
                                           width: 0.0, color: Colors.blue),
                                     ),
                                   ),
+                                  initialValue: serviceCharge,
                                   onChanged: (value) {
-                                    unit = value;
+                                    serviceCharge = value;
                                   },
                                 ),
                               ],
@@ -297,8 +316,9 @@ class _AddServiceState extends State<AddService> {
                                           width: 0.0, color: Colors.blue),
                                     ),
                                   ),
+                                  initialValue: serviceChargePerPeriod,
                                   onChanged: (value) {
-                                    unitPrice = value;
+                                    serviceChargePerPeriod = value;
                                   },
                                 ),
                               ],
@@ -334,30 +354,58 @@ class _AddServiceState extends State<AddService> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                  filled: true, //<-- SEE HERE
-                                  fillColor: Colors.grey.withOpacity(0.15),
-                                  hintText: "Ex: Saturday, Sunday",
-                                  prefixIcon: const Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: Icon(Icons.date_range_outlined),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
-                                        width: 0.0, color: Colors.blue),
-                                  ),
-                                ),
-                                initialValue: weekoff,
-                                onChanged: (value) {
-                                  weekoff = value;
+                              WeekdaySelector(
+                                onChanged: (int day) {
+                                  setState(() {
+                                    // Use module % 7 as Sunday's index in the array is 0 and
+                                    // DateTime.sunday constant integer value is 7.
+                                    final index = day % 7;
+                                    // We "flip" the value in this example, but you may also
+                                    // perform validation, a DB write, an HTTP call or anything
+                                    // else before you actually flip the value,
+                                    // it's up to your app's needs.
+                                    weekoffValues[index] =
+                                        !weekoffValues[index];
+                                  });
                                 },
+                                values: weekoffValues,
+                                color: Colors.black,
+                                fillColor: Colors.grey[200],
+                                selectedFillColor: Colors.redAccent,
+                                shortWeekdays: const [
+                                  "Sun",
+                                  "Mon",
+                                  "Tue",
+                                  "Wed",
+                                  "Thu",
+                                  "Fri",
+                                  "Sat",
+                                ],
                               ),
+                              // TextFormField(
+                              //   decoration: InputDecoration(
+                              //     filled: true, //<-- SEE HERE
+                              //     fillColor: Colors.grey.withOpacity(0.15),
+                              //     hintText: "Ex: Saturday, Sunday",
+                              //     prefixIcon: const Padding(
+                              //       padding: EdgeInsets.all(5.0),
+                              //       child: Icon(Icons.date_range_outlined),
+                              //     ),
+                              //     enabledBorder: UnderlineInputBorder(
+                              //       borderSide: BorderSide(color: Colors.white),
+                              //       borderRadius: BorderRadius.circular(10.0),
+                              //     ),
+                              //     focusedBorder: UnderlineInputBorder(
+                              //       borderRadius: BorderRadius.circular(10.0),
+                              //       borderSide: BorderSide(
+                              //           width: 0.0, color: Colors.blue),
+                              //     ),
+                              //   ),
+                              //   initialValue: weekoff,
+                              //   onChanged: (value) {
+                              //     weekoff = value;
+                              //   },
+                              // ),
                               const SizedBox(
                                 height: 25,
                               ),
@@ -378,7 +426,7 @@ class _AddServiceState extends State<AddService> {
                                   hintText: "Ex: 2, 4",
                                   prefixIcon: const Padding(
                                     padding: EdgeInsets.all(5.0),
-                                    child: Icon(Icons.numbers),
+                                    child: Icon(Icons.calendar_month),
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
@@ -390,16 +438,16 @@ class _AddServiceState extends State<AddService> {
                                         width: 0.0, color: Colors.blue),
                                   ),
                                 ),
-                                initialValue: extraHoliday,
+                                initialValue: paidHolidaysPerMonth,
                                 onChanged: (value) {
-                                  extraHoliday = value;
+                                  paidHolidaysPerMonth = value;
                                 },
                               ),
                               SizedBox(
                                 height: 5,
                               ),
                               Text(
-                                "If week-off is selected, then this will the extra holidays for the person. If no week-of is selected then, this will be the allowed holidays/month for the person",
+                                "Note: If week-off is set then this will be considered as the additional holidays, otherwise this represents the allowed holidays/month for the service.",
                                 style: TextStyle(color: Colors.grey),
                               ),
                               const SizedBox(
@@ -509,20 +557,37 @@ class _AddServiceState extends State<AddService> {
                               borderRadius: BorderRadius.circular(10.0)),
                         ),
                         onPressed: () {
-                          if (provisionName.isNotEmpty &&
-                              unit.isNotEmpty &&
-                              unitPrice.isNotEmpty &&
-                              unitMeasurementWord.isNotEmpty) {
-                            IsarService().saveProvision(Provision()
-                              ..name = provisionName
+                          if (serviceName.isNotEmpty &&
+                              personName.isNotEmpty &&
+                              serviceCharge.isNotEmpty &&
+                              serviceChargePerPeriod.isNotEmpty) {
+                            List<String> selectedWeekoff = <String>[""];
+                            selectedWeekoff =
+                                weekoffValues.asMap().entries.map((e) {
+                              int idx = e.key;
+                              if (e.value == true) {
+                                return weekdays[idx];
+                              }
+                            }).toList() as List<String>;
+
+                            IsarService().saveService(Service()
+                              ..serviceName = serviceName
+                              ..personName = personName
                               ..icon = selectedEmoji
-                              ..notes = notes
-                              ..unit = double.parse(unit)
-                              ..unitPrice = double.parse(unitPrice)
-                              ..unitMeasurementWord = unitMeasurementWord
-                              ..minUnitPerDay = double.parse(minUnitPerDay)
-                              ..maxUnitPerDay = double.parse(maxUnitPerDay)
-                              ..timestamp = DateTime.now());
+                              ..servicePrice = serviceCharge as double
+                              ..servicePricePeriod = serviceChargePerPeriod
+                              ..weekoff = selectedWeekoff
+                              ..paidHolidaysPerMonth = paidHolidaysPerMonth);
+                            // IsarService().saveProvision(Provision()
+                            //   ..name = provisionName
+                            //   ..icon = selectedEmoji
+                            //   ..notes = notes
+                            //   ..unit = double.parse(unit)
+                            //   ..unitPrice = double.parse(unitPrice)
+                            //   ..unitMeasurementWord = unitMeasurementWord
+                            //   ..minUnitPerDay = double.parse(minUnitPerDay)
+                            //   ..maxUnitPerDay = double.parse(maxUnitPerDay)
+                            //   ..timestamp = DateTime.now());
 
                             Navigator.pop(context);
                           } else {

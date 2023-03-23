@@ -32,6 +32,11 @@ class IsarService {
     isar.writeTxnSync<int>(() => isar.provisions.putSync(provision));
   }
 
+  Future<void> saveService(Service service) async {
+    final isar = await db;
+    isar.writeTxnSync<int>(() => isar.services.putSync(service));
+  }
+
   //
   // Future<void> deleteGame(Id gameId) async {
   //   final isar = await db;

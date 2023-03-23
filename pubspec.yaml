@@ -43,6 +43,7 @@ dependencies:
   url_launcher: ^6.1.9
   table_calendar: ^3.0.8
   emoji_picker_flutter: ^1.5.2
+  weekday_selector: ^1.1.0
 
 flutter_native_splash:
   color: "#2196F3"
