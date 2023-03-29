@@ -220,7 +220,7 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                                   Row(
                                     children: [
                                       Text(
-                                        "Settled: ",
+                                        "Paid: ",
                                         style: TextStyle(
                                             fontSize:
                                                 textTheme.subtitle2!.fontSize,
@@ -234,7 +234,7 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                                             color: Colors.green),
                                       ),
                                       Text(
-                                        "-  Credit: ",
+                                        "  -  Balance: ",
                                         style: TextStyle(
                                             fontSize:
                                                 textTheme.subtitle2!.fontSize,
@@ -482,12 +482,28 @@ class _ProvisionEntryScreenState extends State<ProvisionEntryScreen> {
                     ),
                     const SizedBox(height: 15.0),
                     Center(
-                      child: Text(
-                        "Selected Date: ${DateFormat.MMMMEEEEd().format(_selectedDay)}",
-                        style: TextStyle(
-                          fontSize: textTheme.caption!.fontSize,
-                          color: Colors.grey,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "${DateFormat.MMMMEEEEd().format(_selectedDay)}",
+                            style: TextStyle(
+                              fontSize: textTheme.caption!.fontSize,
+                              color: Colors.black54,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "↓",
+                            style: TextStyle(
+                              fontSize: textTheme.titleMedium!.fontSize,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 10.0),

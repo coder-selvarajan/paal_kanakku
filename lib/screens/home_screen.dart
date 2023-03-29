@@ -133,7 +133,7 @@ class HomeScreen extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Settled: ",
+                                          "Paid: ",
                                           style: TextStyle(
                                             fontSize:
                                                 textTheme.caption!.fontSize,
@@ -151,7 +151,7 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          "  |  Pending : ",
+                                          "  |  Balance : ",
                                           style: TextStyle(
                                             fontSize:
                                                 textTheme.caption!.fontSize,
@@ -234,11 +234,8 @@ class HomeScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Icon(
-                                  Icons.settings,
-                                  size: 20,
-                                ),
-                                SizedBox(
-                                  width: 10,
+                                  Icons.arrow_right,
+                                  size: 25,
                                 ),
                                 Text(
                                   "Setup",
@@ -263,6 +260,7 @@ class HomeScreen extends StatelessWidget {
                         icon: "🥛",
                         title: "Milk",
                         subtitle: "15 Litre - Rs 600",
+                        paymentStatus: PaymentStatus.paid,
                         settledAmount: "200",
                         pendingAmount: "400",
                         itemType: ItemType.provision,
@@ -276,6 +274,7 @@ class HomeScreen extends StatelessWidget {
                         icon: "💧",
                         title: "Watercane",
                         subtitle: "12 cane - Rs 360",
+                        paymentStatus: PaymentStatus.halfPaid,
                         settledAmount: "130",
                         pendingAmount: "130",
                         itemType: ItemType.provision,
@@ -328,11 +327,11 @@ class HomeScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Icon(
-                                  Icons.settings,
-                                  size: 20,
+                                  Icons.arrow_right,
+                                  size: 25,
                                 ),
                                 SizedBox(
-                                  width: 10,
+                                  width: 0,
                                 ),
                                 Text(
                                   "Setup",
@@ -356,7 +355,8 @@ class HomeScreen extends StatelessWidget {
                         textTheme: textTheme,
                         icon: "👩🏻‍🍼",
                         title: "Baby Sitter",
-                        subtitle: "Monthly - ₹8000",
+                        subtitle: "₹8000/Month",
+                        paymentStatus: PaymentStatus.notPaid,
                         settledAmount: "1000",
                         pendingAmount: "8000",
                         itemType: ItemType.service,
@@ -368,7 +368,8 @@ class HomeScreen extends StatelessWidget {
                         textTheme: textTheme,
                         icon: "🙋🏻‍♀️",
                         title: "Maid",
-                        subtitle: "Monthly - ₹4000",
+                        subtitle: "₹4000/Month",
+                        paymentStatus: PaymentStatus.paid,
                         settledAmount: "0",
                         pendingAmount: "4000",
                         itemType: ItemType.service,
@@ -484,6 +485,8 @@ class HomeScreen extends StatelessWidget {
 
 enum ItemType { provision, service }
 
+enum PaymentStatus { notPaid, paid, halfPaid }
+
 class HomeItemTile extends StatelessWidget {
   const HomeItemTile({
     Key? key,
@@ -491,6 +494,7 @@ class HomeItemTile extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.subtitle,
+    required this.paymentStatus,
     required this.settledAmount,
     required this.pendingAmount,
     required this.itemType,
@@ -500,6 +504,7 @@ class HomeItemTile extends StatelessWidget {
   final String icon;
   final String title;
   final String subtitle;
+  final PaymentStatus paymentStatus;
   final String settledAmount;
   final String pendingAmount;
   final ItemType itemType;
@@ -528,71 +533,116 @@ class HomeItemTile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  // fontSize: textTheme.titleLarge!.fontSize,
-                ),
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              Text(
-                subtitle,
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: textTheme.bodyMedium!.fontSize),
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Settled: ",
+                    title,
                     style: TextStyle(
-                      fontSize: textTheme.caption!.fontSize,
-                      // fontWeight: FontWeight.bold,
-                      // color: Colors.lightBlue,
+                      fontWeight: FontWeight.bold,
+                      // fontSize: textTheme.titleLarge!.fontSize,
                     ),
                   ),
-                  Text(
-                    "₹$settledAmount",
-                    style: TextStyle(
-                      fontSize: textTheme.caption!.fontSize,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.green,
-                    ),
-                  ),
-                  Text(
-                    "  |  Balance : ",
-                    style: TextStyle(
-                      fontSize: textTheme.caption!.fontSize,
-                      // fontWeight: FontWeight.bold,
-                      // color: Colors.lightBlue,
-                    ),
-                  ),
-                  Text(
-                    "₹$pendingAmount",
-                    style: TextStyle(
-                      fontSize: textTheme.caption!.fontSize,
-                      // fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
-                  ),
+                  (itemType == ItemType.service
+                      ? Text(
+                          "  -  Shanthi",
+                          style: TextStyle(
+                            // fontWeight: FontWeight.bold,
+                            fontSize: textTheme.titleSmall!.fontSize,
+                          ),
+                        )
+                      : SizedBox()),
                 ],
               ),
               SizedBox(
                 height: 5.0,
               ),
-              Text(
-                "Last entry : 2 days before",
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: textTheme.bodySmall!.fontSize),
+              Row(
+                children: [
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: textTheme.subtitle2!.fontSize),
+                  ),
+                  SizedBox(width: 5.0),
+                  (paymentStatus == PaymentStatus.notPaid
+                      ? Text(
+                          " (Not Paid)",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: textTheme.caption!.fontSize),
+                        )
+                      : (paymentStatus == PaymentStatus.halfPaid
+                          ? Text(
+                              " (Balance: ₹${pendingAmount})",
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: textTheme.caption!.fontSize),
+                            )
+                          : Text(
+                              " (Paid)",
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: textTheme.caption!.fontSize),
+                            ))),
+                ],
               ),
+              // SizedBox(
+              //   height: 5.0,
+              // ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     Text(
+              //       "Settled: ",
+              //       style: TextStyle(
+              //         fontSize: textTheme.caption!.fontSize,
+              //         // fontWeight: FontWeight.bold,
+              //         // color: Colors.lightBlue,
+              //       ),
+              //     ),
+              //     Text(
+              //       "₹$settledAmount",
+              //       style: TextStyle(
+              //         fontSize: textTheme.caption!.fontSize,
+              //         fontWeight: FontWeight.w400,
+              //         color: Colors.green,
+              //       ),
+              //     ),
+              //     Text(
+              //       "  |  Balance : ",
+              //       style: TextStyle(
+              //         fontSize: textTheme.caption!.fontSize,
+              //         // fontWeight: FontWeight.bold,
+              //         // color: Colors.lightBlue,
+              //       ),
+              //     ),
+              //     Text(
+              //       "₹$pendingAmount",
+              //       style: TextStyle(
+              //         fontSize: textTheme.caption!.fontSize,
+              //         // fontWeight: FontWeight.bold,
+              //         color: Colors.red,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              SizedBox(
+                height: 5.0,
+              ),
+              (itemType == ItemType.provision
+                  ? Text(
+                      "Last entry : 2 days before",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: textTheme.bodySmall!.fontSize),
+                    )
+                  : Text(
+                      "Last entry : Yesterday",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: textTheme.bodySmall!.fontSize),
+                    )),
             ],
           ),
         ),

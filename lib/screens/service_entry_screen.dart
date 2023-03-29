@@ -199,21 +199,27 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    widget.provision,
-                                    style: TextStyle(
-                                      fontSize: textTheme.titleMedium!.fontSize,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    "Shanthi",
-                                    style: TextStyle(
-                                        fontSize: textTheme.subtitle2!.fontSize,
-                                        color: Colors.black54),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        widget.provision,
+                                        style: TextStyle(
+                                          fontSize:
+                                              textTheme.titleMedium!.fontSize,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "-  Shanthi",
+                                        style: TextStyle(
+                                          fontSize:
+                                              textTheme.titleSmall!.fontSize,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
                                     height: 5.0,
@@ -221,20 +227,55 @@ class _ServiceEntryScreenState extends State<ServiceEntryScreen> {
                                   Row(
                                     children: [
                                       Text(
-                                        "March  Attendance -  ",
+                                        "March (20.5 days)  -  ",
                                         style: TextStyle(
                                             fontSize:
                                                 textTheme.subtitle2!.fontSize,
                                             color: Colors.black54),
                                       ),
                                       Text(
-                                        "20.5 days",
+                                        "₹4000",
                                         style: TextStyle(
                                           fontSize:
                                               textTheme.subtitle2!.fontSize,
-                                          color: Colors.green,
+                                          // color: Colors.green,
                                           fontWeight: FontWeight.bold,
                                         ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Paid: ",
+                                        style: TextStyle(
+                                            fontSize:
+                                                textTheme.subtitle2!.fontSize,
+                                            color: Colors.black54),
+                                      ),
+                                      Text(
+                                        "₹500",
+                                        style: TextStyle(
+                                            fontSize:
+                                                textTheme.subtitle2!.fontSize,
+                                            color: Colors.green),
+                                      ),
+                                      Text(
+                                        "  -  Balance: ",
+                                        style: TextStyle(
+                                            fontSize:
+                                                textTheme.subtitle2!.fontSize,
+                                            color: Colors.black54),
+                                      ),
+                                      Text(
+                                        "₹3500",
+                                        style: TextStyle(
+                                            fontSize:
+                                                textTheme.subtitle2!.fontSize,
+                                            color: Colors.red),
                                       ),
                                     ],
                                   ),
